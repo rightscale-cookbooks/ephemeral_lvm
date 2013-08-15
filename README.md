@@ -11,3 +11,5 @@
 # Author
 
 Author:: RightScale, Inc. (<cookbooks@rightscale.com>)
+
+Maintained by the RightScale White Team
