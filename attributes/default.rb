@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ephemeral_lvm
-# Recipe:: default
+# Attributes:: default
 #
 # Copyright (C) 2013 RightScale, Inc.
 # 
@@ -17,9 +17,6 @@
 # limitations under the License.
 #
 
-if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
-  log "Not running on a known cloud, not setting up ephemeral LVM"
-else
-  case node['cloud']['provider']
-  end
-end
+default['ephemeral_lvm']['filesystem'] = "ext4"
+default['ephemeral_lvm']['mount_point'] = "/mnt/ephemeral"
+default['ephemeral_lvm']['logical_volume_size'] = "100%VG"

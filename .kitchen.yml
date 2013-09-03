@@ -15,5 +15,5 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[ephemeral]"]
+  run_list: ["recipe[ephemeral_lvm]"]
   attributes: {}

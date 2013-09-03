@@ -1,4 +1,4 @@
-# ephemeral cookbook
+# ephemeral_lvm cookbook
 
 # Requirements
 
