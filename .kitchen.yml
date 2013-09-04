@@ -1,7 +1,7 @@
 ---
 driver_plugin: vagrant
 driver_config:
-  require_chef_omnibus: false
+  require_chef_omnibus: true
 
 platforms:
 - name: rightimage-ubuntu-12.04
@@ -12,8 +12,29 @@ platforms:
   driver_config:
     box: RightImage_CentOS_6.4_x64_v13.5.0.1
     box_url: https://rightscale-vagrant.s3.amazonaws.com/virtualbox/centos/6.4/RightImage_CentOS_6.4_x64_v13.5.0.1.box
+- name: ubuntu-12.04
+  driver_config:
+    box: opscode-ubuntu-12.04
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+- name: ubuntu-10.04
+  driver_config:
+    box: opscode-ubuntu-10.04
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
+- name: centos-6.4
+  driver_config:
+    box: opscode-centos-6.4
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
+- name: centos-5.9
+  driver_config:
+    box: opscode-centos-5.9
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
 
 suites:
 - name: default
-  run_list: ["recipe[ephemeral_lvm]"]
-  attributes: {}
+  run_list: ["recipe[ephemeral_lvm-test::prepare]", "recipe[ephemeral_lvm]"]
+  attributes:
+    cloud:
+      provider: vagrant
+    vagrant:
+      block_device_mapping_ephemeral0: loop0
+      block_device_mapping_ephemeral1: loop1
