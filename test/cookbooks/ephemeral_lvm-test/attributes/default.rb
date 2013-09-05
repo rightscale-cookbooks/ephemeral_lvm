@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ephemeral_lvm-test
-# Recipe:: prepare
+# Attributes:: default
 #
 # Copyright (C) 2013 RightScale, Inc.
 #
@@ -17,15 +17,5 @@
 # limitations under the License.
 #
 
-if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
-  log "Not running on a known cloud, Skipping preparation."
-else
-  cloud = node['cloud']['provider']
-  ephemeral_devices = node[cloud].keys.collect do |key|
-    if key.match(/block_device_mapping_ephemeral\d+/)
-      node[cloud][key].match(/\/dev\//) ? node[cloud][key] : "/dev/#{node[cloud][key]}"
-    end
-  end
-
-  EphemeralLvmTest::Helper.create_loop_devices(ephemeral_devices)
-end
+# Ephemeral devices used for testing ephemeral_lvm cookbook
+default['ephemeral_lvm-test']['devices'] = ["/dev/loop0", "/dev/loop1"]

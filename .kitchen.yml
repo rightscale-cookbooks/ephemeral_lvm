@@ -4,14 +4,6 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: rightimage-ubuntu-12.04
-  driver_config:
-    box: RightImage_Ubuntu_12.04_x64_v13.5.0.1
-    box_url: https://rightscale-vagrant.s3.amazonaws.com/virtualbox/ubuntu/12.04/RightImage_Ubuntu_12.04_x64_v13.5.0.1.box
-- name: rightimage-centos-6.4
-  driver_config:
-    box: RightImage_CentOS_6.4_x64_v13.5.0.1
-    box_url: https://rightscale-vagrant.s3.amazonaws.com/virtualbox/centos/6.4/RightImage_CentOS_6.4_x64_v13.5.0.1.box
 - name: ubuntu-12.04
   driver_config:
     box: opscode-ubuntu-12.04
@@ -30,11 +22,43 @@ platforms:
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
 
 suites:
+# This test suite mimics the behavior of being in a cloud which supports block device mapping
+# The loopback devices given in block_device_mapping_ephemeral<N> should be included in
+# the test/cookbooks/ephemeral_lvm-test cookbook's attributes so they get created while running
+# the test. EC2 and openstack clouds follow this format.
+#
 - name: default
-  run_list: ["recipe[ephemeral_lvm-test::prepare]", "recipe[ephemeral_lvm]"]
+  run_list: ["recipe[ephemeral_lvm-test]", "recipe[ephemeral_lvm]"]
   attributes:
     cloud:
       provider: vagrant
     vagrant:
       block_device_mapping_ephemeral0: loop0
       block_device_mapping_ephemeral1: loop1
+
+# This test mimics the behavior of being in a google compute engine. The ephemeral disks
+# are mapped to /dev/disk/by-id/google-ephemeral-disk-<N>. Loopback device matching the
+# device index should be set in the test/cookbooks/ephemeral_lvm-test cookbook's attributes
+# so they get created. For example, the following attributes will require the creation of
+# loopback devices "/dev/loop0" and "/dev/loop1"
+#
+- name: gce
+  run_list: ["recipe[ephemeral_lvm-test::gce]", "recipe[ephemeral_lvm]"]
+  attributes:
+    cloud:
+      provider: gce
+    gce:
+      attached_disks:
+        disks:
+        - deviceName: boot
+          index: 0
+          mode: READ_WRITE
+          type: EPHEMERAL
+        - deviceName: ephemeral-disk-0
+          index: 1
+          mode: READ_WRITE
+          type: EPHEMERAL
+        - deviceName: ephemeral-disk-1
+          index: 2
+          mode: READ_WRITE
+          type: EPHEMERAL
