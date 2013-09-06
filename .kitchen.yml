@@ -32,6 +32,8 @@ suites:
   attributes:
     cloud:
       provider: vagrant
+    ephemeral_lvm:
+      filesystem: ext3
     vagrant:
       block_device_mapping_ephemeral0: loop0
       block_device_mapping_ephemeral1: loop1
@@ -47,6 +49,8 @@ suites:
   attributes:
     cloud:
       provider: gce
+    ephemeral_lvm:
+      filesystem: ext3
     gce:
       attached_disks:
         disks:

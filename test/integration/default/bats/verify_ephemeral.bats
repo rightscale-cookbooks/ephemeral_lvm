@@ -1,5 +1,9 @@
 #/usr/bin/env bats
 
+# On CentOS 5.9, most of the commands used here are not in PATH. So add them
+# here.
+export PATH=$PATH:/sbin:/usr/sbin
+
 @test "physical volumes are created for ephemeral devices" {
   pvs | grep /dev/loop0
   pvs | grep /dev/loop1
@@ -15,6 +19,6 @@
 
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
-  mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext4"
-  grep -P "/dev/mapper/vg--data-lvol0\s+/mnt/ephemeral\s+ext4" /etc/fstab
+  mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext3"
+  grep -P "/dev/mapper/vg--data-lvol0\s+/mnt/ephemeral\s+ext3" /etc/fstab
 }

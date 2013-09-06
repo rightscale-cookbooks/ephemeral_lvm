@@ -26,7 +26,7 @@ if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
 else
   ephemeral_devices = []
   cloud = node['cloud']['provider']
-  # Detect the ephemeral disks available on the instance
+  # Detects the ephemeral disks available on the instance.
   #
   # If the cloud plugin supports block device mapping on the node, obtain the
   # information from the node for setting up block device
@@ -37,6 +37,19 @@ else
         node[cloud][key].match(/\/dev\//) ? node[cloud][key] : "/dev/#{node[cloud][key]}"
       end
     end
+
+    # Removes nil elements from the ephemeral_devices array if any.
+    ephemeral_devices.compact!
+
+    # Servers running on Xen hypervisor require the block device to be in /dev/xvdX instead of /dev/sdX
+    if node.attribute?('virtualization') && node['virtualization']['system'] == "xen"
+      Chef::Log.info "Mapping for devices: #{ephemeral_devices.inspect}"
+      ephemeral_devices = EphemeralLvm::Helper.fix_device_mapping(
+        ephemeral_devices,
+        node['block_device'].keys
+      )
+    log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
+    end
   else
     # Cloud specific ephemeral detection logic if the cloud doesn't support block_device_mapping
     #
@@ -44,20 +57,20 @@ else
     when 'gce'
       # According the GCE documentation, the instances have links for ephemeral disks as
       # /dev/disk/by-id/google-ephemeral-disk-*. Refer
-      # https://developers.google.com/compute/docs/disks#scratchdisks for more information
+      # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
       #
       ephemeral_devices = node[cloud]['attached_disks']['disks'].collect do |disk|
         if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/ephemeral-disk-\d+/)
           "/dev/disk/by-id/google-#{disk["deviceName"]}"
         end
       end
+      # Removes nil elements from the ephemeral_devices array if any.
+      ephemeral_devices.compact!
     else
       log "Cloud '#{cloud}' doesn't have ephemeral disks or this cookbook doesn't support that cloud"
     end
   end
 
-  # Remove nil elements from the ephemeral_devices array if any
-  ephemeral_devices.compact!
 
 
   if ephemeral_devices.empty?
@@ -65,13 +78,13 @@ else
   else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
-    # Create physical volumes for all ephemeral disks
-    #
+    # Creates physical volumes for all ephemeral disks.
     ephemeral_devices.each do |device|
       lvm_physical_volume device
     end
 
-    # Create the volume group and logical volume
+    # Create the volume group and logical volume. If more than one ephemeral disks are found,
+    # they are created with LVM stripes with the stripe size set in the attributes.
     #
     lvm_volume_group node['ephemeral_lvm']['volume_group_name'] do
       physical_volumes ephemeral_devices

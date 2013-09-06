@@ -1,5 +1,9 @@
 #/usr/bin/env bats
 
+# On CentOS 5.9, most of the commands used here are not in PATH. So add them
+# here.
+export PATH=$PATH:/sbin:/usr/sbin
+
 @test "google ephemeral disk by-id symbolic links exist" {
   test -L /dev/disk/by-id/google-ephemeral-disk-0
   test -L /dev/disk/by-id/google-ephemeral-disk-1
@@ -20,6 +24,6 @@
 
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
-  mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext4"
-  grep -P "/dev/mapper/vg--data-lvol0\s+/mnt/ephemeral\s+ext4" /etc/fstab
+  mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext3"
+  grep -P "/dev/mapper/vg--data-lvol0\s+/mnt/ephemeral\s+ext3" /etc/fstab
 }
