@@ -78,11 +78,6 @@ else
   else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
-    # Creates physical volumes for all ephemeral disks.
-    ephemeral_devices.each do |device|
-      lvm_physical_volume device
-    end
-
     # Create the volume group and logical volume. If more than one ephemeral disks are found,
     # they are created with LVM stripes with the stripe size set in the attributes.
     #

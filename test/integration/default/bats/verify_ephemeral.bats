@@ -17,6 +17,14 @@ export PATH=$PATH:/sbin:/usr/sbin
   lvs | grep vg-data | grep lvol0
 }
 
+# The `lvs --segments --separator :` command outputs in the following format
+# 'LV:VG:Attr:#Str:Type:SSize' where '#Str' is the number of stripes and 'Type' is 'striped'
+# if the LVM is striped and 'linear' otherwise.
+#
+@test "logical volumes are striped" {
+  lvs --segments --separator : | grep -P "lvol0:vg-data.*:2:striped"
+}
+
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
   mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext3"
