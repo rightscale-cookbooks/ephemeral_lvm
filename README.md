@@ -1,5 +1,5 @@
 # ephemeral_lvm cookbook
-Sets up the ephemeral device on a cloud instance to be an LVM device, formats the device, and mounts it.
+Sets up the ephemeral device(s) on a cloud instance to be an LVM device, formats the device, and mounts it.
 
 # Requirements
 * Chef 10 or higher
@@ -47,11 +47,15 @@ The following are the attributes used by the this cookbook.
 </table>
 
 # Usage
-Once the required attributes are set, place the `ephemeral_lvm::default` in the runlist and the ephemeral devices will be
+Once the required attributes are set, place the `ephemeral_lvm::default` in the runlist and the ephemeral devices will
+be setup.
 
 # Recipes
 ## default
-This recipe will identify the ephemeral devices available on the instance based on Ohai data. If no ephemeral devices found, this recipe will gracefully exit with a log message. If ephemeral devices are found, they will be setup to use LVM and a logical volume will be created, formatted, and mounted. If multiple ephemeral devices are found (e.g. m1.large on EC2 has 2 ephemeral devices with 420 GB each), they will be striped to create the LVM.
+This recipe will identify the ephemeral devices available on the instance based on Ohai data. If no ephemeral devices
+found, this recipe will gracefully exit with a log message. If ephemeral devices are found, they will be setup to use
+LVM and a logical volume will be created, formatted, and mounted. If multiple ephemeral devices are found
+(e.g. m1.large on EC2 has 2 ephemeral devices with 420 GB each), they will be striped to create the LVM.
 
 # Author
 
