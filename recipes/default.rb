@@ -31,10 +31,10 @@ else
   # If the cloud plugin supports block device mapping on the node, obtain the
   # information from the node for setting up block device
   #
-  if node[cloud].keys.any? { |key| key.match(/block_device_mapping_ephemeral\d+/) }
-    ephemeral_devices = node[cloud].keys.collect do |key|
-      if key.match(/block_device_mapping_ephemeral\d+/)
-        node[cloud][key].match(/\/dev\//) ? node[cloud][key] : "/dev/#{node[cloud][key]}"
+  if node[cloud].keys.any? { |key| key.match(/^block_device_mapping_ephemeral\d+$/) }
+    ephemeral_devices = node[cloud].map do |key, device|
+      if key.match(/^block_device_mapping_ephemeral\d+$/)
+        device.match(/\/dev\//) ? device : "/dev/#{device}"
       end
     end
 
@@ -59,7 +59,7 @@ else
       # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
       # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
       #
-      ephemeral_devices = node[cloud]['attached_disks']['disks'].collect do |disk|
+      ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
         if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^ephemeral-disk-\d+$/)
           "/dev/disk/by-id/google-#{disk["deviceName"]}"
         end

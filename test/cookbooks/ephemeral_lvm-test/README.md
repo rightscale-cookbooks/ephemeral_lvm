@@ -14,9 +14,13 @@ This cookbook is only used to test the `ephemeral_lvm` cookbook.
 
 # Recipes
 
-## prepare
+## default
 
 This recipe prepares the server with some loop devices as ephemeral disks.
+
+## gce
+
+This recipe prepares the server to mimic the behavior of GCE cloud by setting up the links to ephemeral devices.
 
 # Author
 
