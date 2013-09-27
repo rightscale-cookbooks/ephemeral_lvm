@@ -1,9 +1,11 @@
 # ephemeral_lvm-test cookbook
 
 # Requirements
+
 Requires the `ephemeral_lvm` cookbook.
 
 # Usage
+
 This cookbook is only used to test the `ephemeral_lvm` cookbook.
 
 # Attributes
@@ -13,6 +15,7 @@ This cookbook is only used to test the `ephemeral_lvm` cookbook.
 # Recipes
 
 ## prepare
+
 This recipe prepares the server with some loop devices as ephemeral disks.
 
 # Author

@@ -43,42 +43,40 @@ else
 
     # Servers running on Xen hypervisor require the block device to be in /dev/xvdX instead of /dev/sdX
     if node.attribute?('virtualization') && node['virtualization']['system'] == "xen"
-      Chef::Log.info "Mapping for devices: #{ephemeral_devices.inspect}"
+      log "Mapping for devices: #{ephemeral_devices.inspect}"
       ephemeral_devices = EphemeralLvm::Helper.fix_device_mapping(
         ephemeral_devices,
         node['block_device'].keys
       )
-    log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
+      log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
     end
   else
     # Cloud specific ephemeral detection logic if the cloud doesn't support block_device_mapping
     #
     case cloud
     when 'gce'
-      # According the GCE documentation, the instances have links for ephemeral disks as
-      # /dev/disk/by-id/google-ephemeral-disk-*. Refer
+      # According to the GCE documentation, the instances have links for ephemeral disks as
+      # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
       # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
       #
       ephemeral_devices = node[cloud]['attached_disks']['disks'].collect do |disk|
-        if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/ephemeral-disk-\d+/)
+        if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^ephemeral-disk-\d+$/)
           "/dev/disk/by-id/google-#{disk["deviceName"]}"
         end
       end
       # Removes nil elements from the ephemeral_devices array if any.
       ephemeral_devices.compact!
     else
-      log "Cloud '#{cloud}' doesn't have ephemeral disks or this cookbook doesn't support that cloud"
+      log "Cloud '#{cloud}' is not supported by this cookbook."
     end
   end
-
-
 
   if ephemeral_devices.empty?
     log "No ephemeral disks found. Skipping setup."
   else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
-    # Create the volume group and logical volume. If more than one ephemeral disks are found,
+    # Create the volume group and logical volume. If more than one ephemeral disk is found,
     # they are created with LVM stripes with the stripe size set in the attributes.
     #
     lvm_volume_group node['ephemeral_lvm']['volume_group_name'] do

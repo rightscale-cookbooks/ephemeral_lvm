@@ -26,7 +26,11 @@ include_recipe "ephemeral_lvm-test"
 #
 node['ephemeral_lvm-test']['devices'].each do |device|
   match = device.match(/\/dev\/loop(\d+)/)
-  match.nil? ? next : device_index = match[1]
+  if match.nil?
+    next
+  else
+    device_index = match[1]
+  end
   link "/dev/disk/by-id/google-ephemeral-disk-#{device_index}" do
     to device
   end

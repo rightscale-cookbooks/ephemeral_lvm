@@ -19,12 +19,27 @@
 
 module EphemeralLvm
   module Helper
+    # Fixes the device mapping on Xen hypervisors.
+    #
+    # @param devices [Array<String>] list of devices to fix the mapping
+    # @param node_block_devices [Array<String>] list of block devices currently attached to the server
+    #
+    # @return [Array<String>] list of devices with fixed mapping
+    #
     def self.fix_device_mapping(devices, node_block_devices)
-      fixed_devices = devices.map do |device|
-        fixed_device = device.sub("/sd", "/xvd")
-        fixed_device if node_block_devices.include?(fixed_device.match(/\/dev\/([a-z]+)$/)[1])
+      devices.map! do |device|
+        if node_block_devices.include?(device.match(/\/dev\/([a-z]+)$/)[1])
+          device
+        else
+          fixed_device = device.sub("/sd", "/xvd")
+          if node_block_devices.include?(fixed_device.match(/\/dev\/([a-z]+)$/)[1])
+            fixed_device
+          else
+            Chef::Log.warn "could not find ephemeral device: #{device}"
+          end
+        end
       end
-      fixed_devices.compact
+      devices.compact
     end
   end
 end

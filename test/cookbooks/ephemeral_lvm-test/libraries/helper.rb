@@ -17,20 +17,22 @@
 # limitations under the License.
 #
 
+require 'chef/mixin/shell_out'
+
 module EphemeralLvmTest
   module Helper
+    extend Chef::Mixin::ShellOut
+
     # Creates given loop devices
     #
-    # @param devices [Array, String] the devices to create
+    # @param devices [Array<String>, String] the devices to create
     #
     #
     def self.create_loop_devices(devices)
       Array(devices).each do |device|
         num = device.slice(/\d+/)
-        mk_vfile_cmd = "dd if=/dev/zero of=/vfile#{num} bs=1024 count=65536"
-        Mixlib::ShellOut.new(mk_vfile_cmd).run_command.error!
-        mk_loop_dev_cmd = "losetup #{device} /vfile#{num}"
-        Mixlib::ShellOut.new(mk_loop_dev_cmd).run_command.error!
+        shell_out!("dd if=/dev/zero of=/vfile#{num} bs=1024 count=65536")
+        shell_out!("losetup #{device} /vfile#{num}")
       end
     end
 
@@ -41,9 +43,8 @@ module EphemeralLvmTest
     def self.remove_loop_devices(devices)
       require 'fileutils'
       Array(devices).each do |device|
-        Chef::Log.info "Removing loop device: #{device}"
         num = device.slice(/\d+/)
-        Mixlib::ShellOut.new("losetup -d #{device}").run_command.error!
+        shell_out!("losetup -d #{device}")
         FileUtils.rm_rf("/vfile#{num}")
       end
     end
