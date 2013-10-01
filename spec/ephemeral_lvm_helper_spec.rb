@@ -1,4 +1,5 @@
 require_relative '../libraries/helper'
+require 'logger'
 
 describe EphemeralLvm::Helper do
   describe "#fix_device_mapping" do
@@ -21,13 +22,8 @@ describe EphemeralLvm::Helper do
     end
 
     it "skips the devices that cannot be mapped" do
-      # TODO: Mock this
-      class Chef
-        class Log
-          def self.warn(str); end
-        end
-      end
-
+      stub_const("Chef::Log", Logger.new('/dev/null'))
+      Chef::Log.should_receive(:warn).with("could not find ephemeral device: /dev/sdb")
       expect(
         EphemeralLvm::Helper.fix_device_mapping(["/dev/sda", "/dev/sdb"], ["xvda"])
       ).to eq(["/dev/xvda"])
