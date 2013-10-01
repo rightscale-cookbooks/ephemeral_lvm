@@ -1,4 +1,4 @@
-# ephemeral_lvm-test cookbook
+# fake cookbook
 
 # Requirements
 
@@ -10,7 +10,7 @@ This cookbook is only used to test the `ephemeral_lvm` cookbook.
 
 # Attributes
 
-`node['ephemeral_lvm-test']['devices']` - The ephemeral devices to be used for testing
+`node['fake']['devices']` - The ephemeral devices to be used for testing
 
 # Recipes
 

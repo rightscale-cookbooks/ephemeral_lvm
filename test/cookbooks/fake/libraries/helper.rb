@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: ephemeral_lvm-test
+# Cookbook Name:: fake
 # Library:: helper
 #
 # Copyright (C) 2013 RightScale, Inc.

@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ephemeral_lvm-test
-# Attributes:: default
+# Cookbook Name:: fake
+# Recipe:: gce
 #
 # Copyright (C) 2013 RightScale, Inc.
 #
@@ -17,5 +17,21 @@
 # limitations under the License.
 #
 
-# Ephemeral devices used for testing ephemeral_lvm cookbook
-default['ephemeral_lvm-test']['devices'] = ["/dev/loop0", "/dev/loop1"]
+# Include the fake::default recipe which sets up the loopback
+# devices used in the test.
+#
+include_recipe "fake"
+
+# Setup the links for ephemeral devices for google by id
+#
+node['fake']['devices'].each do |device|
+  match = device.match(/\/dev\/loop(\d+)/)
+  if match.nil?
+    next
+  else
+    device_index = match[1]
+  end
+  link "/dev/disk/by-id/google-ephemeral-disk-#{device_index}" do
+    to device
+  end
+end

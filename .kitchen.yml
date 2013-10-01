@@ -24,11 +24,11 @@ platforms:
 suites:
 # This test suite mimics the behavior of being in a cloud which supports block device mapping
 # The loopback devices given in block_device_mapping_ephemeral<N> should be included in
-# the test/cookbooks/ephemeral_lvm-test cookbook's attributes so they get created while running
+# the test/cookbooks/fake cookbook's attributes so they get created while running
 # the test. EC2 and openstack clouds follow this format.
 #
 - name: default
-  run_list: ["recipe[ephemeral_lvm-test]", "recipe[ephemeral_lvm]"]
+  run_list: ["recipe[fake]", "recipe[ephemeral_lvm]"]
   attributes:
     cloud:
       provider: vagrant
@@ -40,12 +40,12 @@ suites:
 
 # This test mimics the behavior of being in a google compute engine. The ephemeral disks
 # are mapped to /dev/disk/by-id/google-ephemeral-disk-<N>. Loopback device matching the
-# device index should be set in the test/cookbooks/ephemeral_lvm-test cookbook's attributes
+# device index should be set in the test/cookbooks/fake cookbook's attributes
 # so they get created. For example, the following attributes will require the creation of
 # loopback devices "/dev/loop0" and "/dev/loop1"
 #
 - name: gce
-  run_list: ["recipe[ephemeral_lvm-test::gce]", "recipe[ephemeral_lvm]"]
+  run_list: ["recipe[fake::gce]", "recipe[ephemeral_lvm]"]
   attributes:
     cloud:
       provider: gce

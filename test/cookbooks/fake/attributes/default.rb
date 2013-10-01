@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: ephemeral_lvm-test
-# Recipe:: default
+# Cookbook Name:: fake
+# Attributes:: default
 #
 # Copyright (C) 2013 RightScale, Inc.
 #
@@ -17,10 +17,5 @@
 # limitations under the License.
 #
 
-# Create the loopback devices used for testing ephemeral_lvm
-#
-if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
-  log "Not running on a known cloud, Skipping test setup."
-else
-  EphemeralLvmTest::Helper.create_loop_devices(node['ephemeral_lvm-test']['devices'])
-end
+# Ephemeral devices used for testing ephemeral_lvm cookbook
+default['fake']['devices'] = ["/dev/loop0", "/dev/loop1"]
