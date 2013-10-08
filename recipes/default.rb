@@ -24,52 +24,13 @@ include_recipe "lvm"
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
   log "Not running on a known cloud, not setting up ephemeral LVM"
 else
-  ephemeral_devices = []
+  # Obtain the current cloud
   cloud = node['cloud']['provider']
-  # Detects the ephemeral disks available on the instance.
-  #
-  # If the cloud plugin supports block device mapping on the node, obtain the
-  # information from the node for setting up block device
-  #
-  if node[cloud].keys.any? { |key| key.match(/^block_device_mapping_ephemeral\d+$/) }
-    ephemeral_devices = node[cloud].map do |key, device|
-      if key.match(/^block_device_mapping_ephemeral\d+$/)
-        device.match(/\/dev\//) ? device : "/dev/#{device}"
-      end
-    end
 
-    # Removes nil elements from the ephemeral_devices array if any.
-    ephemeral_devices.compact!
-
-    # Servers running on Xen hypervisor require the block device to be in /dev/xvdX instead of /dev/sdX
-    if node.attribute?('virtualization') && node['virtualization']['system'] == "xen"
-      log "Mapping for devices: #{ephemeral_devices.inspect}"
-      ephemeral_devices = EphemeralLvm::Helper.fix_device_mapping(
-        ephemeral_devices,
-        node['block_device'].keys
-      )
-      log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
-    end
-  else
-    # Cloud specific ephemeral detection logic if the cloud doesn't support block_device_mapping
-    #
-    case cloud
-    when 'gce'
-      # According to the GCE documentation, the instances have links for ephemeral disks as
-      # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
-      # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
-      #
-      ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-        if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^ephemeral-disk-\d+$/)
-          "/dev/disk/by-id/google-#{disk["deviceName"]}"
-        end
-      end
-      # Removes nil elements from the ephemeral_devices array if any.
-      ephemeral_devices.compact!
-    else
-      log "Cloud '#{cloud}' is not supported by this cookbook."
-    end
-  end
+  # Obtain the available ephemeral devices. See "libraries/helper.rb" for the definition of
+  # "get_ephemeral_devices" method.
+  #
+  ephemeral_devices = EphemeralLvm::Helper.get_ephemeral_devices(cloud, node)
 
   if ephemeral_devices.empty?
     log "No ephemeral disks found. Skipping setup."
@@ -88,7 +49,7 @@ else
         mount_point node['ephemeral_lvm']['mount_point']
         if ephemeral_devices.size > 1
           stripes ephemeral_devices.size
-          stripe_size node['ephemeral_lvm']['stripe_size']
+          stripe_size node['ephemeral_lvm']['stripe_size'].to_i
         end
       end
     end

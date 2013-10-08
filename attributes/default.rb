@@ -30,7 +30,7 @@ default['ephemeral_lvm']['volume_group_name'] = "vg-data"
 default['ephemeral_lvm']['logical_volume_size'] = "100%VG"
 
 # The ephemeral logical volume name
-default['ephemeral_lvm']['logical_volume_name'] = "lvol0"
+default['ephemeral_lvm']['logical_volume_name'] = "ephemeral0"
 
 # The stripe size in kilobytes to be used if more than one ephemeral disk is found
 default['ephemeral_lvm']['stripe_size'] = 512

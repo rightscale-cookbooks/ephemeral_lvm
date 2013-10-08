@@ -14,7 +14,7 @@ export PATH=$PATH:/sbin:/usr/sbin
 }
 
 @test "logical volume is created for ephemeral devices on the correct volume group" {
-  lvs | grep vg-data | grep lvol0
+  lvs | grep vg-data | grep ephemeral0
 }
 
 # The `lvs --segments --separator :` command outputs in the following format
@@ -22,11 +22,11 @@ export PATH=$PATH:/sbin:/usr/sbin
 # if the LVM is striped and 'linear' otherwise.
 #
 @test "logical volumes are striped" {
-  lvs --segments --separator : | grep -P "lvol0:vg-data.*:2:striped"
+  lvs --segments --separator : | grep -P "ephemeral0:vg-data.*:2:striped"
 }
 
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
-  mount | grep "/dev/mapper/vg--data-lvol0 on /mnt/ephemeral type ext3"
-  grep -P "/dev/mapper/vg--data-lvol0\s+/mnt/ephemeral\s+ext3" /etc/fstab
+  mount | grep "/dev/mapper/vg--data-ephemeral0 on /mnt/ephemeral type ext3"
+  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3" /etc/fstab
 }
