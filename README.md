@@ -23,7 +23,7 @@ The following are the attributes used by the this cookbook.
   <tr>
     <td><tt>node['ephemeral_lvm']['filesystem']</tt></td>
     <td>The filesystem to be used on the ephemeral volume</td>
-    <td><tt>'ext3'</tt></td>
+    <td><tt>'ext4'</tt></td>
   </tr>
   <tr>
     <td><tt>node['ephemeral_lvm']['mount_point']</tt></td>
