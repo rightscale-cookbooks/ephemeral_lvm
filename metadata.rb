@@ -11,7 +11,7 @@ supports 'centos'
 
 depends 'lvm', '~> 1.0.0'
 
-recipe "ephemeral_lvm::default", "Setps up ephemeral devices on a cloud server"
+recipe "ephemeral_lvm::default", "Sets up ephemeral devices on a cloud server"
 
 attribute "ephemeral_lvm/filesystem",
   :display_name => "Ephemeral LVM Filesystem",
