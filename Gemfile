@@ -1,10 +1,5 @@
 source 'https://rubygems.org'
 
-# Berkshelf had some issues with latest version of Celluloid
-# which required latest version of ridley which was causing problems.
-# So locking ridley to '~> 1.5.0' here makes things work
-#
-gem 'ridley', '~> 1.5.0'
 gem 'berkshelf'
 gem 'thor-foodcritic'
 gem 'thor-scmversion'
