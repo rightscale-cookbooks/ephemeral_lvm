@@ -1,5 +1,7 @@
 # ephemeral_lvm cookbook
 
+[![Build Status](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm.png?branch=master)](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm)
+
 This cookbook will identify the ephemeral devices available on the instance based on Ohai data. If no ephemeral devices
 are found, it will gracefully exit with a log message. If ephemeral devices are found, they will be setup to
 use LVM and a logical volume will be created, formatted, and mounted. If multiple ephemeral devices are found
