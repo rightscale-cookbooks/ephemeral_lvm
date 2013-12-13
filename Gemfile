@@ -5,7 +5,7 @@ gem 'thor-foodcritic'
 gem 'thor-scmversion'
 
 group :integration do
-  gem 'test-kitchen', '~> 1.0.0.beta.3'
+  gem 'test-kitchen', '~> 1.1.0'
   gem 'kitchen-vagrant'
 end
 
