@@ -7,11 +7,18 @@ are found, it will gracefully exit with a log message. If ephemeral devices are 
 use LVM and a logical volume will be created, formatted, and mounted. If multiple ephemeral devices are found
 (e.g. m1.large on EC2 has 2 ephemeral devices with 420 GB each), they will be striped to create the LVM.
 
+Github Repository: [https://github.com/rightscale-cookbooks/ephemeral_lvm](https://github.com/rightscale-cookbooks/ephemeral_lvm)
+
 # Requirements
 
-* Chef 10 or higher
+* Chef 11 or higher
 * A cloud that supports ephemeral devices. Currently supported clouds: EC2, Openstack, and Google.
 * The [lvm](http://community.opscode.com/cookbooks/lvm) cookbook
+* Platforms
+  * Ubuntu 12.04
+  * Ubuntu 10.04
+  * CentOS 6.4
+  * CentOS 5.9
 
 # Attributes
 
