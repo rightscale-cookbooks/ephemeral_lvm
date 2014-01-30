@@ -1,0 +1,117 @@
+{
+  "name": "ephemeral_lvm",
+  "description": "Configures available ephemeral devices on a cloud server",
+  "long_description": "# ephemeral_lvm cookbook\n\n[![Build Status](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm.png?branch=master)](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm)\n\nThis cookbook will identify the ephemeral devices available on the instance based on Ohai data. If no ephemeral devices\nare found, it will gracefully exit with a log message. If ephemeral devices are found, they will be setup to\nuse LVM and a logical volume will be created, formatted, and mounted. If multiple ephemeral devices are found\n(e.g. m1.large on EC2 has 2 ephemeral devices with 420 GB each), they will be striped to create the LVM.\n\nGithub Repository: [https://github.com/rightscale-cookbooks/ephemeral_lvm](https://github.com/rightscale-cookbooks/ephemeral_lvm)\n\n# Requirements\n\n* Chef 11 or higher\n* A cloud that supports ephemeral devices. Currently supported clouds: EC2, Openstack, and Google.\n* The [lvm](http://community.opscode.com/cookbooks/lvm) cookbook\n* Platforms\n  * Ubuntu 12.04\n  * Ubuntu 10.04\n  * CentOS 6.4\n  * CentOS 5.9\n\n# Attributes\n\nThe following are the attributes used by the this cookbook.\n<table>\n  <tr>\n    <th>Name</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['filesystem']</tt></td>\n    <td>The filesystem to be used on the ephemeral volume</td>\n    <td><tt>'ext4'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['mount_point']</tt></td>\n    <td>The mount point for the ephemeral volume</td>\n    <td><tt>'/mnt/ephemeral'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['volume_group_name']</tt></td>\n    <td>The volume group name for the ephemeral LVM</td>\n    <td><tt>'vg-data'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['logical_volume_size']</tt></td>\n    <td>The size to be used for the ephemeral LVM</td>\n    <td><tt>'100%VG'</tt> - This will use all available space in the volume group</td>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['logical_volume_name']</tt></td>\n    <td>The name of the logical volume for ephemeral LVM</td>\n    <td><tt>'ephemeral0'</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['ephemeral_lvm']['stripe_size']</tt></td>\n    <td>The stripe size to be used for the ephemeral logical volume</td>\n    <td><tt>512</tt></td>\n  </tr>\n</table>\n\n# Usage\n\nPlace the `ephemeral_lvm::default` in the runlist and the ephemeral devices will be setup.\n\n# Recipes\n\n## default\n\nThis recipe sets up available ephemeral devices to be an LVM device, formats it, and mounts it.\n\n# Author\n\nAuthor:: RightScale, Inc. (<cookbooks@rightscale.com>)\n",
+  "maintainer": "RightScale, Inc.",
+  "maintainer_email": "cookbooks@rightscale.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "dependencies": {
+    "lvm": "~> 1.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "ephemeral_lvm/filesystem": {
+      "display_name": "Ephemeral LVM Filesystem",
+      "description": "The filesystem to be used on the ephemeral volume",
+      "default": "ext4",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "recommended",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "ephemeral_lvm/mount_point": {
+      "display_name": "Ephemeral LVM Mount Point",
+      "description": "The mount point for the ephemeral volume",
+      "default": "/mnt/ephemeral",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "recommended",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "ephemeral_lvm/volume_group_name": {
+      "display_name": "Ephemeral LVM Volume Group Name",
+      "description": "The volume group name for the ephemeral LVM",
+      "default": "vg-data",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "optional",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "ephemeral_lvm/logical_volume_size": {
+      "display_name": "Ephemeral LVM Logical Volume Size",
+      "description": "The size to be used for the ephemeral LVM",
+      "default": "100%VG",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "optional",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "ephemeral_lvm/logical_volume_name": {
+      "display_name": "Ephemeral LVM Logical Volume Name",
+      "description": "The name of the logical volume for ephemeral LVM",
+      "default": "ephemeral0",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "optional",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "ephemeral_lvm/stripe_size": {
+      "display_name": "Ephemeral LVM Stripe Size",
+      "description": "The stripe size to be used for the ephemeral logical volume",
+      "default": "512",
+      "recipes": [
+        "ephemeral_lvm::default"
+      ],
+      "required": "optional",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string"
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "ephemeral_lvm::default": "Sets up ephemeral devices on a cloud server"
+  },
+  "version": "1.0.2000000000000000000001"
+}
