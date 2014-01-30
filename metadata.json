@@ -113,5 +113,5 @@
   "recipes": {
     "ephemeral_lvm::default": "Sets up ephemeral devices on a cloud server"
   },
-  "version": "1.0.204"
+  "version": "1.0.3"
 }
