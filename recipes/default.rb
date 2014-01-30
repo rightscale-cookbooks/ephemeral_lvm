@@ -20,12 +20,10 @@
 # Include the lvm::default recipe which sets up the resources/providers for lvm
 #
 
-chef::log.info ("********************************************************************************")
-chef::log.info ("*RS>  Running recipe #{self.cookbook_name}::#{self.recipe_name}   ****")
-
+log "********************************************************************************"
+log "*RS>  Running recipe #{self.cookbook_name}::#{self.recipe_name}   ****"
 
 include_recipe "lvm"
-
 
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
   log "Not running on a known cloud, not setting up ephemeral LVM"
