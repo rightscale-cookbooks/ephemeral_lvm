@@ -21,6 +21,9 @@
 #
 include_recipe "lvm"
 
+# install XFS bins when necessary
+package 'xfsprogs' if node['ephemeral_lvm']['filesystem'] == 'xfs'
+
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
   log "Not running on a known cloud, not setting up ephemeral LVM"
 else
