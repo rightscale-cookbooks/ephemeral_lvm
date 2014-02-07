@@ -8,6 +8,7 @@ version          '1.0.2'
 
 supports 'ubuntu'
 supports 'centos'
+supports 'debian'
 
 depends 'lvm', '~> 1.0.0'
 
