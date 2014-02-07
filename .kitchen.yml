@@ -20,6 +20,10 @@ platforms:
   driver_config:
     box: opscode-centos-5.9
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+- name: debian-7.2.0
+  driver_config:
+    box: opscode-debian-7.2.0
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.2.0_chef-provisionerless.box
 
 suites:
 # This test suite mimics the behavior of being in a cloud which supports block device mapping
