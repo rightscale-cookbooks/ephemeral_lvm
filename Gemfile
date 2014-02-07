@@ -10,6 +10,6 @@ group :integration do
 end
 
 group :test do
-  gem 'chefspec', '~> 1.3'
+  gem 'chefspec', '~> 3.2'
   gem 'strainer', '~> 3.0'
 end
