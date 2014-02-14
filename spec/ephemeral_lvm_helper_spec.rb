@@ -28,5 +28,11 @@ describe EphemeralLvm::Helper do
         EphemeralLvm::Helper.fix_device_mapping(["/dev/sda", "/dev/sdb"], ["xvda"])
       ).to eq(["/dev/xvda"])
     end
+
+    it 'map devices with a numeric suffix' do
+      expect(
+        EphemeralLvm::Helper.fix_device_mapping(['/dev/sda2'], ['xvda2'])
+      ).to eq(['/dev/xvda2'])
+    end
   end
 end
