@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.4
+------
+
+- Pull Request [#13][]: Fixed a bug where `fix_device_mapping` was returning the output of `Chef::Log.warn` instead of
+  `nil` if it could not find the ephemeral device ([@autrejacoupa][])
+
 v1.0.3
 ------
 
@@ -29,5 +35,7 @@ v1.0.0
 [#3]: https://github.com/rightscale-cookbooks/ephemeral/issues/3
 [#9]: https://github.com/rightscale-cookbooks/ephemeral/issues/9
 [#11]: https://github.com/rightscale-cookbooks/ephemeral/issues/11
+[#13]: https://github.com/rightscale-cookbooks/ephemeral/issues/13
+[@autrejacoupa]: https://github.com/autrejacoupa
 [@drywheat]: https://github.com/drywheat
 [@juliandunn]: https://github.com/juliandunn
