@@ -70,7 +70,7 @@ module EphemeralLvm
           # Removes nil elements from the ephemeral_devices array if any.
           ephemeral_devices.compact!
         else
-          Chef::Log.info "Cloud '#{cloud}' is not supported by 'ephemeral_lvm' cookbook."
+          Chef::Log.info "Cloud '#{cloud}' No ephemeral disks found." 
         end
       end
       ephemeral_devices
