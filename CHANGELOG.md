@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.5
+------
+
+- Changed a misleading error message where no ephemeral disks were found.
+- Update lvm cookbook dependency to `1.1.x`.
+
 v1.0.4
 ------
 
