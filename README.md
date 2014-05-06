@@ -17,7 +17,7 @@ Github Repository: [https://github.com/rightscale-cookbooks/ephemeral_lvm](https
   * [lvm](http://community.opscode.com/cookbooks/lvm)
 * Platforms
   * Ubuntu 12.04
-  * CentOS 6.4
+  * CentOS 6
 
 # Usage
 
