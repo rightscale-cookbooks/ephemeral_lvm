@@ -6,7 +6,7 @@ This file is used to list changes made in each version of the ephemeral_lvm cook
 v1.0.6
 ------
 
-- [#19][]: Do not automatically mount the ephemeral LVM since epehemeral volumes are actually ephemeral and will not come
+- [#19][]: Do not automatically mount the ephemeral LVM since ephemeral volumes are actually ephemeral and will not come
   back after stop/start.
 
 v1.0.5
