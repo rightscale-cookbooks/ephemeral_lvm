@@ -22,7 +22,6 @@ export PATH=$PATH:/sbin:/usr/sbin
   lvs | grep vg-data | grep ephemeral0
 }
 
-
 # The `lvs --segments --separator :` command outputs in the following format
 # 'LV:VG:Attr:#Str:Type:SSize' where '#Str' is the number of stripes and 'Type' is 'striped'
 # if the LVM is striped and 'linear' otherwise.
@@ -34,6 +33,5 @@ export PATH=$PATH:/sbin:/usr/sbin
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
   mount | grep "/dev/mapper/vg--data-ephemeral0 on /mnt/ephemeral type ext3"
-  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s" /etc/fstab
-  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s+0\s+0\s" /etc/fstab
+  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s+0\s+0" /etc/fstab
 }
