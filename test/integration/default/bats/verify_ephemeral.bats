@@ -28,5 +28,5 @@ export PATH=$PATH:/sbin:/usr/sbin
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
   mountpoint /mnt/ephemeral
   mount | grep "/dev/mapper/vg--data-ephemeral0 on /mnt/ephemeral type ext3"
-  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s" /etc/fstab
+  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s+0\s+0" /etc/fstab
 }
