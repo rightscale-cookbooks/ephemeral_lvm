@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.7
+------
+
+- Set the fs_passno field to 0 in /etc/fstab to inform fsck that the filesystem used by the ephemeral volumes should
+  not be checked after stop/start.
+
 v1.0.6
 ------
 
