@@ -53,5 +53,19 @@ else
         end
       end
     end
+    
+    # If owner and group are specified then we chown accordingly.
+    # 
+    if node.attribute?(node['ephemeral_lvm']['owner']) || node.attribute?(node['ephemeral_lvm']['group'])
+        directory node['ephemeral_lvm']['mount_point'] do
+           if node.attribute?(node['ephemeral_lvm']['owner'])
+              owner node['ephemeral_lvm']['owner']
+           end
+           if node.attribute?(node['ephemeral_lvm']['group'])
+              group node['ephemeral_lvm']['group']
+           end
+           mode 00755
+        end
+    end
   end
 end
