@@ -1,6 +1,12 @@
 # ephemeral_lvm cookbook
 
-[![Build Status](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm.png?branch=master)](https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm)
+[![Cookbook](https://img.shields.io/cookbook/v/ephemeral_lvm.svg?style=flat)][cookbook]
+[![Release](https://img.shields.io/github/release/rightscale-cookbooks/ephemeral_lvm.svg?style=flat)][release]
+[![Build Status](https://img.shields.io/travis/rightscale-cookbooks/ephemeral_lvm.svg?style=flat)][travis]
+
+[cookbook]: https://supermarket.getchef.com/cookbooks/ephemeral_lvm
+[release]: https://github.com/rightscale-cookbooks/ephemeral_lvm/releases/latest
+[travis]: https://travis-ci.org/rightscale-cookbooks/ephemeral_lvm
 
 This cookbook will identify the ephemeral devices available on the instance based on Ohai data. If no ephemeral devices
 are found, it will gracefully exit with a log message. If ephemeral devices are found, they will be setup to
