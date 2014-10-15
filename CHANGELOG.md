@@ -3,6 +3,11 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.8
+------
+
+- Add testing for support of Ubuntu 14.04, CentOS 7.0, and RedHat Enterprise Linux 7.0.
+
 v1.0.7
 ------
 
