@@ -41,6 +41,7 @@ else
     # This will erase the first 512 bytes of the disk which should destroy any format signatures.
     #
     ephemeral_devices.each do |ephemeral_device|
+      log "Preparing #{ephemeral_device}"
       IO.write(ephemeral_device, '0' * 512, 0)
     end
 
