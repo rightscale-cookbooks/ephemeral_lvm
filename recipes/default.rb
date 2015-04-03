@@ -37,6 +37,13 @@ else
   else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
+    # Ephemeral disks may have been previously formatted, which can hang some lvm calls.
+    # This will erase the first 512 bytes of the disk which should destroy any format signatures.
+    #
+    ephemeral_devices.each do |ephemeral_device|
+      IO.write(ephemeral_device, '0' * 512, 0)
+    end
+
     # Create the volume group and logical volume. If more than one ephemeral disk is found,
     # they are created with LVM stripes with the stripe size set in the attributes.
     #
