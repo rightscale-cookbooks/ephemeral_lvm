@@ -42,7 +42,8 @@ else
     #
     ephemeral_devices.each do |ephemeral_device|
       log "Preparing #{ephemeral_device}"
-      IO.write(ephemeral_device, '0' * 512, 0)
+      wipefs = Mixlib::ShellOut.new("wipefs -all #{ephemeral_device}")
+      wipefs.run_command
     end
 
     # Create the volume group and logical volume. If more than one ephemeral disk is found,
