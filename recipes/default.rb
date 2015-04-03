@@ -42,7 +42,7 @@ else
     #
     ephemeral_devices.each do |ephemeral_device|
       log "Preparing #{ephemeral_device}"
-      wipefs = Mixlib::ShellOut.new("wipefs -all #{ephemeral_device}")
+      wipefs = Mixlib::ShellOut.new("wipefs --all #{ephemeral_device}")
       wipefs.run_command
     end
 
