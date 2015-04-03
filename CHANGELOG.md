@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.9
+------
+
+- Overwrite first 512 bytes on each ephemeral disk destroying any filesystem signatures and
+  avoiding user input during lvm commands.
+
 v1.0.8
 ------
 
