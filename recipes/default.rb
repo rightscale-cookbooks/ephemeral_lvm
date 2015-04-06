@@ -38,7 +38,7 @@ else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
     # Ephemeral disks may have been previously formatted, which can hang some lvm calls.
-    # This will erase the first 512 bytes of the disk which should destroy any format signatures.
+    # Run 'wipefs' on each ephemeral disk to remove any filesystem signatures.
     #
     ephemeral_devices.each do |ephemeral_device|
       log "Preparing #{ephemeral_device}"
