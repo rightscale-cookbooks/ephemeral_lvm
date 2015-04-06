@@ -16,10 +16,11 @@ recipe "ephemeral_lvm::default", "Sets up ephemeral devices on a cloud server"
 
 attribute "ephemeral_lvm/filesystem",
   :display_name => "Ephemeral LVM Filesystem",
-  :description => "The filesystem to be used on the ephemeral volume",
-  :default => "ext4",
+  :description =>
+    "The filesystem to be used on the ephemeral volume." +
+    " Defaults are based on OS and determined in attributes/defaults.rb.",
   :recipes => ["ephemeral_lvm::default"],
-  :required => "recommended"
+  :required => "optional"
 
 attribute "ephemeral_lvm/mount_point",
   :display_name => "Ephemeral LVM Mount Point",
