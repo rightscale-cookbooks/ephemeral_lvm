@@ -40,10 +40,14 @@ else
     # Ephemeral disks may have been previously formatted, which can hang some lvm calls.
     # Run 'wipefs' on each ephemeral disk to remove any filesystem signatures.
     #
-    ephemeral_devices.each do |ephemeral_device|
-      log "Preparing #{ephemeral_device}"
-      wipefs = Mixlib::ShellOut.new("wipefs --all #{ephemeral_device}")
-      wipefs.run_command
+    check_volume_group = Mixlib::ShellOut.new("vgs #{node['ephemeral_lvm']['volume_group_name']}").run_command
+    if check_volume_group.exitstatus != 0
+      ephemeral_devices.each do |ephemeral_device|
+        log "Preparing #{ephemeral_device}"
+        execute "wipefs --all #{ephemeral_device}"
+      end
+    else
+      log "No need to remove ephemeral disk filesystem signatures."
     end
 
     # Create the volume group and logical volume. If more than one ephemeral disk is found,
