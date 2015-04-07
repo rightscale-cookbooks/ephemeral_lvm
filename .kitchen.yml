@@ -2,9 +2,6 @@
 driver_plugin: vagrant
 driver_config:
   require_chef_omnibus: 11.6.0
-attributes:
-  ephemeral_lvm:
-    filesystem: ext4
 
 platforms:
 - name: centos-5.9
@@ -30,6 +27,9 @@ platforms:
   driver_config:
     box: local-rhel-7.0
     box_url: file://<%= File.expand_path('~') %>/opscode_rhel-7.0_chef-provisionerless.box
+  attributes:
+    ephemeral_lvm:
+      filesystem: xfs
 - name: ubuntu-10.04
   driver_config:
     box: opscode-ubuntu-10.04
