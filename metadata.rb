@@ -20,7 +20,7 @@ attribute "ephemeral_lvm/filesystem",
     "The filesystem to be used on the ephemeral volume." +
     " Defaults are based on OS and determined in attributes/defaults.rb.",
   :recipes => ["ephemeral_lvm::default"],
-  :required => "optional"
+  :required => "recommended"
 
 attribute "ephemeral_lvm/mount_point",
   :display_name => "Ephemeral LVM Mount Point",
