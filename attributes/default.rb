@@ -18,7 +18,9 @@
 #
 
 # The ephemeral file system
-default['ephemeral_lvm']['filesystem'] = "ext4"
+# RHEL 7 and CentOS 7 uses XFS as their default file system.
+default['ephemeral_lvm']['filesystem'] =
+  node['platform_family'] == 'rhel' && node['platform_version'] =~ /^7\./ ? 'xfs' : 'ext4'
 
 # The ephemeral mount point
 default['ephemeral_lvm']['mount_point'] = "/mnt/ephemeral"

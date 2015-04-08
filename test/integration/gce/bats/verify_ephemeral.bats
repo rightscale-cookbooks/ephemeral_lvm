@@ -31,7 +31,20 @@ export PATH=$PATH:/sbin:/usr/sbin
 }
 
 @test "ephemeral logical volume is mounted to /mnt/ephemeral" {
+  if type -P lsb_release; then
+    is_rhel=`lsb_release -sir | grep -Pqiz "^(centos|redHatEnterpriseServer)\s6\." && echo "true" || echo "false"`
+  else
+    # On RHEL: Red Hat Enterprise Linux Server release 7.1 (Maipo)
+    # On CentOS: CentOS Linux release 7.0.1406 (Core)
+    is_rhel=`grep -Pqiz "^(centos|red hat enterprise) linux.+ 7\." /etc/redhat-release && echo "true" || echo "false"`
+  fi
+
+  if [[ $is_rhel == "true" ]]; then
+    filesystem='xfs'
+  else
+    filesystem='ext4'
+  fi
   mountpoint /mnt/ephemeral
-  mount | grep "/dev/mapper/vg--data-ephemeral0 on /mnt/ephemeral type ext3"
-  grep -P "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+ext3\s+defaults,noauto\s+0\s+0" /etc/fstab
+  mount | egrep "^/dev/mapper/vg--data-ephemeral0 on /mnt/ephemeral type $filesystem"
+  egrep "/dev/mapper/vg--data-ephemeral0\s+/mnt/ephemeral\s+$filesystem\s+defaults,noauto\s+0\s+0" /etc/fstab
 }

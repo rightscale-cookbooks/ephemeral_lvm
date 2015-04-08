@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.8'
+version          '1.0.9'
 
 supports 'ubuntu'
 supports 'centos'
@@ -16,8 +16,9 @@ recipe "ephemeral_lvm::default", "Sets up ephemeral devices on a cloud server"
 
 attribute "ephemeral_lvm/filesystem",
   :display_name => "Ephemeral LVM Filesystem",
-  :description => "The filesystem to be used on the ephemeral volume",
-  :default => "ext4",
+  :description =>
+    "The filesystem to be used on the ephemeral volume." +
+    " Defaults are based on OS and determined in attributes/defaults.rb.",
   :recipes => ["ephemeral_lvm::default"],
   :required => "recommended"
 
