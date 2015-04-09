@@ -23,10 +23,10 @@ platforms:
   driver_config:
     box: local-rhel-6.5
     box_url: file://<%= File.expand_path('~') %>/opscode_rhel-6.5_chef-provisionerless.box
-- name: rhel-7.0
+- name: rhel-7.1
   driver_config:
-    box: local-rhel-7.0
-    box_url: file://<%= File.expand_path('~') %>/opscode_rhel-7.0_chef-provisionerless.box
+    box: opscode-rhel-7.1
+    box_url: https://s3.amazonaws.com/st-vagrant-boxes/opscode_rhel-7.1_chef-provisionerless.box
   attributes:
     ephemeral_lvm:
       filesystem: xfs
