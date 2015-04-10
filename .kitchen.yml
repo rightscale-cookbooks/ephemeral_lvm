@@ -16,6 +16,12 @@ platforms:
   attributes:
     ephemeral_lvm:
       filesystem: xfs
+- name: centos-7.1
+  driver_config:
+    box: opscode-centos-7.1
+  attributes:
+    ephemeral_lvm:
+      filesystem: xfs
 - name: debian-7.2.0
   driver_config:
     box: opscode-debian-7.2.0
