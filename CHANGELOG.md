@@ -3,6 +3,13 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.10
+-------
+
+- Due to issue https://github.com/gregsymons/di-ruby-lvm-attrib/issues/22, updated gem added to cookbook
+  to allow use with RHEL/CentOS 7.1.
+- Updated lvm cookbook dependency version to 1.3.6.
+
 v1.0.9
 ------
 
