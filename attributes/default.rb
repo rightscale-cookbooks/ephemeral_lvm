@@ -21,8 +21,10 @@
 default['ephemeral_lvm']['filesystem'] = "ext4"
 
 # The ephemeral mount point
-default['ephemeral_lvm']['mount_point'] = {
-  location: "/mnt/ephemeral",
+default['ephemeral_lvm']['mount_point'] = "/mnt/ephemeral"
+
+# The ephemeral mount point options
+default['ephemeral_lvm']['mount_point_properties'] = {
   options: ["defaults", "noauto"],
   pass: 0
 }
