@@ -5,6 +5,10 @@ This file is used to list changes made in each version of the ephemeral_lvm cook
 
 v1.0.11
 -------
+- NativeX fork that implements ephemeral LVM mount options
+
+v1.0.11
+-------
 
 - Issue https://github.com/gregsymons/di-ruby-lvm-attrib/issues/22 has been fixed so workaround can be removed.
 

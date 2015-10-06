@@ -59,7 +59,7 @@ else
       logical_volume node['ephemeral_lvm']['logical_volume_name'] do
         size node['ephemeral_lvm']['logical_volume_size']
         filesystem node['ephemeral_lvm']['filesystem']
-        mount_point location: node['ephemeral_lvm']['mount_point'], options: ['defaults', 'noauto'], pass: 0
+        mount_point location: node['ephemeral_lvm']['mount_point'], options: node['ephemeral_lvm']['mount_options'], pass: 0
         if ephemeral_devices.size > 1
           stripes ephemeral_devices.size
           stripe_size node['ephemeral_lvm']['stripe_size'].to_i
