@@ -59,11 +59,11 @@ module EphemeralLvm
         case cloud
         when 'gce'
           # According to the GCE documentation, the instances have links for ephemeral disks as
-          # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
-          # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
+          # /dev/disk/by-id/google-local-ssd-*. Refer to
+          # https://cloud.google.com/compute/docs/disks/local-ssd for more information.
           #
-          ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-            if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^ephemeral-disk-\d+$/)
+          ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
+            if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^local-ssd-\d+$/)
               "/dev/disk/by-id/google-#{disk["deviceName"]}"
             end
           end
