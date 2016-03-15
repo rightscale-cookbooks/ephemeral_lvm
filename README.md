@@ -33,6 +33,7 @@ Place the `ephemeral_lvm::default` in the runlist and the ephemeral devices will
 
 * `node['ephemeral_lvm']['filesystem']` - the filesystem to be used on the ephemeral volume. Default: `'ext4'`
 * `node['ephemeral_lvm']['mount_point']` - the mount point for the ephemeral volume. Default: `'/mnt/ephemeral'`
+* `node['ephemeral_lvm']['mount_point_properties']` - the options used when mounting the ephemeral volume. Default: `{options: ['defaults', 'noauto'], pass: 0}`
 * `node['ephemeral_lvm']['volume_group_name']` - the volume group name for the ephemeral LVM. Default: `'vg-data'`
 * `node['ephemeral_lvm']['logical_volume_size']` - the size to be used for the ephemeral LVM. Default: `'100%VG'` - This will use all available space in the volume group.
 * `node['ephemeral_lvm']['logical_volume_name']` - the name of the logical volume for ephemeral LVM. Default: `'ephemeral0'`

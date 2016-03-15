@@ -29,6 +29,13 @@ attribute "ephemeral_lvm/mount_point",
   :recipes => ["ephemeral_lvm::default"],
   :required => "recommended"
 
+attribute "ephemeral_lvm/mount_point_properties",
+  :display_name => "Ephemeral LVM Mount Properties",
+  :description => "The options used when mounting the ephemeral volume",
+  :default => {:options => ["defaults", "noauto"], :pass => 0},
+  :recipes => ["ephemeral_lvm::default"],
+  :required => "optional"
+
 attribute "ephemeral_lvm/volume_group_name",
   :display_name => "Ephemeral LVM Volume Group Name",
   :description => "The volume group name for the ephemeral LVM",
