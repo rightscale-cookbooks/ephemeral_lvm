@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the ephemeral_lvm cook
 v1.0.13
 -------
 - update lvm cookbook to 1.6.1
+- Removes static options from LVM mounting
 
 v1.0.12
 -------
