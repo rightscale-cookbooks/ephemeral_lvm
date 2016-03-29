@@ -3,6 +3,16 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.13
+-------
+- update lvm cookbook to 1.6.1
+- Removes static options from LVM mounting
+
+v1.0.12
+-------
+
+- run vgs command during converge instead of compile time
+
 v1.0.11
 -------
 
