@@ -4,13 +4,13 @@ maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.11'
+version          '1.0.14'
 
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
 
-depends 'lvm', '~> 1.3.6'
+depends 'lvm', '~> 1.6.1'
 
 recipe "ephemeral_lvm::default", "Sets up ephemeral devices on a cloud server"
 
@@ -28,6 +28,14 @@ attribute "ephemeral_lvm/mount_point",
   :default => "/mnt/ephemeral",
   :recipes => ["ephemeral_lvm::default"],
   :required => "recommended"
+
+attribute "ephemeral_lvm/mount_point_properties",
+  :display_name => "Ephemeral LVM Mount Properties",
+  :description => "The options used when mounting the ephemeral volume",
+  :type => "hash",
+  :default => {:options => ["defaults", "noauto"], :pass => 0},
+  :recipes => ["ephemeral_lvm::default"],
+  :required => "optional"
 
 attribute "ephemeral_lvm/volume_group_name",
   :display_name => "Ephemeral LVM Volume Group Name",

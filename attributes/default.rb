@@ -25,6 +25,12 @@ default['ephemeral_lvm']['filesystem'] =
 # The ephemeral mount point
 default['ephemeral_lvm']['mount_point'] = "/mnt/ephemeral"
 
+# The ephemeral mount point options
+default['ephemeral_lvm']['mount_point_properties'] = {
+  options: ["defaults", "noauto"],
+  pass: 0
+}
+
 # The ephemeral volume group name
 default['ephemeral_lvm']['volume_group_name'] = "vg-data"
 
