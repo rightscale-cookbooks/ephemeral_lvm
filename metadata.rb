@@ -32,6 +32,7 @@ attribute "ephemeral_lvm/mount_point",
 attribute "ephemeral_lvm/mount_point_properties",
   :display_name => "Ephemeral LVM Mount Properties",
   :description => "The options used when mounting the ephemeral volume",
+  :type => "hash",
   :default => {:options => ["defaults", "noauto"], :pass => 0},
   :recipes => ["ephemeral_lvm::default"],
   :required => "optional"
