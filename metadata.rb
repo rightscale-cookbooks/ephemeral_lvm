@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.13'
+version          '1.0.14'
 
 supports 'ubuntu'
 supports 'centos'
@@ -32,6 +32,7 @@ attribute "ephemeral_lvm/mount_point",
 attribute "ephemeral_lvm/mount_point_properties",
   :display_name => "Ephemeral LVM Mount Properties",
   :description => "The options used when mounting the ephemeral volume",
+  :type => "hash",
   :default => {:options => ["defaults", "noauto"], :pass => 0},
   :recipes => ["ephemeral_lvm::default"],
   :required => "optional"

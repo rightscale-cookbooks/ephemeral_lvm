@@ -3,6 +3,11 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.14
+-------
+
+- Setting type of "ephemeral_lvm/mount_point_properties" to hash in metadata.rb
+
 v1.0.13
 -------
 - update lvm cookbook to 1.6.1
