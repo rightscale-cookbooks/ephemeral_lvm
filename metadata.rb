@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.15'
+version          '1.0.16'
 
 supports 'ubuntu'
 supports 'centos'
@@ -64,3 +64,11 @@ attribute "ephemeral_lvm/stripe_size",
   :default => "512",
   :recipes => ["ephemeral_lvm::default"],
   :required => "optional"
+
+attribute "ephemeral_lvm/wipe_signatures",
+  :display_name => "Ephemeral LVM Wire Signatures",
+  :description => "Whether to wipe any existing filesystem signatures",
+  :default => false,
+  :recipes => ["ephemeral_lvm::default"],
+  :required => "optional"
+
