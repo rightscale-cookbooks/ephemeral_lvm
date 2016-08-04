@@ -66,7 +66,14 @@ module EphemeralLvm
             if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^local-ssd-\d+$/)
               "/dev/disk/by-id/google-#{disk["deviceName"]}"
             end
-          end
+          end unless node[cloud]['attached_disks'].nil?
+
+          ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
+            if disk['type'] == "LOCAL-SSD" && disk['deviceName'].match(/^local-ssd-\d+$/)
+              "/dev/disk/by-id/google-#{disk["deviceName"]}"
+            end
+          end unless node[cloud]['instance'].nil?
+
           # Removes nil elements from the ephemeral_devices array if any.
           ephemeral_devices.compact!
         else
