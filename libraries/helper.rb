@@ -63,7 +63,7 @@ module EphemeralLvm
           # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
           #
           ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-            if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^local-ssd-\d+$/)
+            if ( disk['type'] == "EPHEMERAL" or disk['type'] == "LOCAL-SSD") && disk['deviceName'].match(/^local-ssd-\d+$/)
               "/dev/disk/by-id/google-#{disk["deviceName"]}"
             end
           end
