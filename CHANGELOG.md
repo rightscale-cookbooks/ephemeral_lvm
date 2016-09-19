@@ -3,6 +3,11 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.17
+-------
+
+- [#54][]: updating lvm cookbook to 2.1.2
+
 v1.0.16
 -------
 
@@ -102,6 +107,7 @@ v1.0.0
 [#11]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/11
 [#13]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/13
 [#19]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/19
+[#54]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/54
 [@autrejacoupa]: https://github.com/autrejacoupa
 [@drywheat]: https://github.com/drywheat
 [@juliandunn]: https://github.com/juliandunn
