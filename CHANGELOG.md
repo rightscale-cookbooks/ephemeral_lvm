@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.16
+-------
+
+- pins lvm to v1.6.1
+- updates tests for rack and buff-ignore
+
 v1.0.15
 -------
 
