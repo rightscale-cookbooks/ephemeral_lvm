@@ -3,6 +3,11 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v1.0.17
+-------
+
+- [#54][]: updating lvm cookbook to 2.1.2
+
 v1.0.16
 -------
 
