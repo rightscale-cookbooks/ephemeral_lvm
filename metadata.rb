@@ -46,7 +46,7 @@ attribute "ephemeral_lvm/volume_group_name",
 
 attribute "ephemeral_lvm/logical_volume_size",
   :display_name => "Ephemeral LVM Logical Volume Size",
-  :description => "The size to be used for the ephemeral LVM",
+  :description => "The size to be used for the ephemeral LVM. Syntax for 'lvcreate --extents' flag is used",
   :default => "100%VG",
   :recipes => ["ephemeral_lvm::default"],
   :required => "optional"

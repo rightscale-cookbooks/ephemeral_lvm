@@ -107,6 +107,7 @@ v1.0.0
 [#11]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/11
 [#13]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/13
 [#19]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/19
+[#54]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/54
 [@autrejacoupa]: https://github.com/autrejacoupa
 [@drywheat]: https://github.com/drywheat
 [@juliandunn]: https://github.com/juliandunn
