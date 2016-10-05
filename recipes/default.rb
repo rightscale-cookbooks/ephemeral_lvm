@@ -46,6 +46,7 @@ else
           ephemeral_devices.each do |ephemeral_device|
             Chef::Log.info "Preparing #{ephemeral_device}"
              Mixlib::ShellOut.new( "wipefs --all #{ephemeral_device}").run_command
+             Mixlib::ShellOut.new( "wipefs --all  -f #{ephemeral_device}").run_command
           end
         else
            Chef::Log.info "No need to remove ephemeral disk filesystem signatures."
