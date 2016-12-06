@@ -3,6 +3,12 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v2.0.0
+-------
+
+- Add support for chef 12
+- Remove support for chef 11
+
 v1.0.17
 -------
 

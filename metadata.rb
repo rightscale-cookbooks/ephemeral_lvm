@@ -4,13 +4,13 @@ maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.17'
+version          '2.0.0'
 
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
 
-depends 'lvm', '>= 2.1.2'
+depends 'lvm'
 
 recipe "ephemeral_lvm::default", "Sets up ephemeral devices on a cloud server"
 
