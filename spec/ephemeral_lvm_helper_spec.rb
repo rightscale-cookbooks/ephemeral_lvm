@@ -23,8 +23,8 @@ describe EphemeralLvm::Helper do
 
     it "skips the devices that cannot be mapped" do
       stub_const("Chef::Log", Logger.new('/dev/null'))
-      Chef::Log.should_receive(:warn).with("could not find ephemeral device: /dev/sdb").and_return([])
-     
+      allow(Chef::Log).to receive(:warn).with("could not find ephemeral device: /dev/sdb").and_return([])
+
       expect(
         EphemeralLvm::Helper.fix_device_mapping(["/dev/sda", "/dev/sdb"], ["xvda"])
       ).to eq(["/dev/xvda"])
