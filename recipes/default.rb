@@ -59,6 +59,8 @@ else
     # they are created with LVM stripes with the stripe size set in the attributes.
     #
     lvm_volume_group node['ephemeral_lvm']['volume_group_name'] do
+      wipe_signatures node['ephemeral_lvm']['wipe_signatures']
+
       physical_volumes ephemeral_devices
 
       logical_volume node['ephemeral_lvm']['logical_volume_name'] do
