@@ -19,7 +19,7 @@
 
 # Include the lvm::default recipe which sets up the resources/providers for lvm
 #
-include_recipe "lvm"
+include_recipe_now "lvm"
 
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider') || !node.attribute?(node['cloud']['provider'])
   log "Not running on a known cloud, not setting up ephemeral LVM"
