@@ -64,3 +64,10 @@ attribute "ephemeral_lvm/stripe_size",
   :default => "512",
   :recipes => ["ephemeral_lvm::default"],
   :required => "optional"
+
+attribute "ephemeral_lvm/wipe_signatures",
+  :display_name => "Ephemeral LVM Wire Signatures",
+  :description => "Whether to wipe any existing filesystem signatures",
+  :default => false,
+  :recipes => ["ephemeral_lvm::default"],
+  :required => "optional"
