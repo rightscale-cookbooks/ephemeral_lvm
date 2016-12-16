@@ -6,7 +6,8 @@ gem 'thor-scmversion'
 gem 'rack', '= 1.6.4'
 gem 'json', '~> 1.8', '>= 1.8.3'
 gem 'buff-ignore', '~> 1.1.1'
-gem 'net-http-persistent','<3.0.0'
+gem 'net-http-persistent', '= 2.9.4'
+gem 'dep_selector', '~> 1.0', '>= 1.0.3'
 
 group :integration do
   gem 'test-kitchen', '~> 1.2'
