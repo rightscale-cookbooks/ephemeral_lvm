@@ -22,13 +22,12 @@ platforms:
   attributes:
     ephemeral_lvm:
       filesystem: xfs
-- name: debian-7.2.0
+- name: debian-7.11
   driver_config:
-    box: bento/debian-7.2.0
+    box: bento/debian-7.11
 - name: ubuntu-12.04
   driver_config:
     box: bento/ubuntu-12.04
-  run_list: ['recipe[apt]']
 - name: ubuntu-14.04
   driver_config:
     box: bento/ubuntu-14.04
