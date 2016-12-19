@@ -16,12 +16,6 @@ platforms:
 - name: centos-6.8
   driver_config:
     box: bento/centos-6.8
-- name: centos-7.0
-  driver_config:
-    box: bento/centos-7.0
-  attributes:
-    ephemeral_lvm:
-      filesystem: xfs
 - name: centos-7.2
   driver_config:
     box: bento/centos-7.2
