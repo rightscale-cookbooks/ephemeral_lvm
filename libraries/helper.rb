@@ -36,8 +36,8 @@ module EphemeralLvm
       #
       if node[cloud].keys.any? { |key| key.match(/^block_device_mapping_ephemeral\d+$/) }
         ephemeral_devices = node[cloud].map do |key, device|
-          if key.match(/^block_device_mapping_ephemeral\d+$/)
-            device.match(/\/dev\//) ? device : "/dev/#{device}"
+          if key =~ /^block_device_mapping_ephemeral\d+$/
+            device =~ %r{\/dev\/} ? device : "/dev/#{device}"
           end
         end
 
@@ -45,7 +45,7 @@ module EphemeralLvm
         ephemeral_devices.compact!
 
         # Servers running on Xen hypervisor require the block device to be in /dev/xvdX instead of /dev/sdX
-        if node.attribute?('virtualization') && node['virtualization']['system'] == "xen"
+        if node.attribute?('virtualization') && node['virtualization']['system'] == 'xen'
           Chef::Log.info "Mapping for devices: #{ephemeral_devices.inspect}"
           ephemeral_devices = EphemeralLvm::Helper.fix_device_mapping(
             ephemeral_devices,
@@ -63,21 +63,21 @@ module EphemeralLvm
           # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
           #
           ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-            if disk['type'] == "EPHEMERAL" && disk['deviceName'].match(/^local-ssd-\d+$/)
-              "/dev/disk/by-id/google-#{disk["deviceName"]}"
+            if disk['type'] == 'EPHEMERAL' && disk['deviceName'].match(/^local-ssd-\d+$/)
+              "/dev/disk/by-id/google-#{disk['deviceName']}"
             end
           end unless node[cloud]['attached_disks'].nil?
 
           ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
-            if disk['type'] == "LOCAL-SSD" && disk['deviceName'].match(/^local-ssd-\d+$/)
-              "/dev/disk/by-id/google-#{disk["deviceName"]}"
+            if disk['type'] == 'LOCAL-SSD' && disk['deviceName'].match(/^local-ssd-\d+$/)
+              "/dev/disk/by-id/google-#{disk['deviceName']}"
             end
           end unless node[cloud]['instance'].nil?
 
           # Removes nil elements from the ephemeral_devices array if any.
           ephemeral_devices.compact!
         else
-          Chef::Log.info "No ephemeral disks found." 
+          Chef::Log.info 'No ephemeral disks found.'
         end
       end
       ephemeral_devices
@@ -94,11 +94,11 @@ module EphemeralLvm
     #
     def self.fix_device_mapping(devices, node_block_devices)
       devices.map! do |device|
-        if node_block_devices.include?(device.match(/\/dev\/(.+)$/)[1])
+        if node_block_devices.include?(device.match(%{\/dev\/(.+)$})[1])
           device
         else
-          fixed_device = device.sub("/sd", "/xvd")
-          if node_block_devices.include?(fixed_device.match(/\/dev\/(.+)$/)[1])
+          fixed_device = device.sub('/sd', '/xvd')
+          if node_block_devices.include?(fixed_device.match(%{\/dev\/(.+)$})[1])
             fixed_device
           else
             Chef::Log.warn "could not find ephemeral device: #{device}"

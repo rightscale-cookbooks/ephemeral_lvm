@@ -5,3 +5,9 @@ AllCops:
 Style/AccessorMethodName:
   Exclude:
     - 'Rakefile'
+Metrics/BlockNesting:
+  Exclude:
+    - 'libraries/helper.rb'
+Style/GuardClause:
+  Exclude:
+    - 'test/cookbooks/fake/recipes/gce.rb'

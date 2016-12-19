@@ -19,10 +19,10 @@
 
 # Include the lvm::default recipe which sets up the resources/providers for lvm
 #
-include_recipe "lvm"
+include_recipe 'lvm'
 
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider') || !node.attribute?(node['cloud']['provider'])
-  log "Not running on a known cloud, not setting up ephemeral LVM"
+  log 'Not running on a known cloud, not setting up ephemeral LVM'
 else
   # Obtain the current cloud
   cloud = node['cloud']['provider']
@@ -33,26 +33,25 @@ else
   ephemeral_devices = EphemeralLvm::Helper.get_ephemeral_devices(cloud, node)
 
   if ephemeral_devices.empty?
-    log "No ephemeral disks found. Skipping setup."
+    log 'No ephemeral disks found. Skipping setup.'
   else
     log "Ephemeral disks found for cloud '#{cloud}': #{ephemeral_devices.inspect}"
 
     # Ephemeral disks may have been previously formatted, which can hang some lvm calls.
     # Run 'wipefs' on each ephemeral disk to remove any filesystem signatures.
-    ruby_block "vgs command" do
-      block do 
+    ruby_block 'vgs command' do
+      block do
         check_volume_group = Mixlib::ShellOut.new("vgs #{node['ephemeral_lvm']['volume_group_name']}").run_command
         if check_volume_group.exitstatus != 0
           ephemeral_devices.each do |ephemeral_device|
             Chef::Log.info "Preparing #{ephemeral_device}"
-             Mixlib::ShellOut.new( "wipefs --all #{ephemeral_device}").run_command
+            Mixlib::ShellOut.new("wipefs --all #{ephemeral_device}").run_command
           end
         else
-           Chef::Log.info "No need to remove ephemeral disk filesystem signatures."
+          Chef::Log.info 'No need to remove ephemeral disk filesystem signatures.'
         end
       end
     end
-
 
     # Create the volume group and logical volume. If more than one ephemeral disk is found,
     # they are created with LVM stripes with the stripe size set in the attributes.

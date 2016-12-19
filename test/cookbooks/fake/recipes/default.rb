@@ -20,7 +20,7 @@
 # Create the loopback devices used for testing ephemeral_lvm
 #
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
-  log "Not running on a known cloud, Skipping test setup."
+  log 'Not running on a known cloud, Skipping test setup.'
 else
   EphemeralLvmTest::Helper.create_loop_devices(node['fake']['devices'])
 end
