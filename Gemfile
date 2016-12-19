@@ -1,20 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-gem 'thor-foodcritic'
-gem 'thor-scmversion'
-gem 'rack', '= 1.6.4'
-gem 'json', '~> 1.8', '>= 1.8.3'
-gem 'buff-ignore', '~> 1.1.1'
-gem 'net-http-persistent', '= 2.9.4'
-gem 'dep_selector', '~> 1.0', '>= 1.0.3'
+gem 'rake'
+gem 'chef', '~> 12.16'
 
 group :integration do
-  gem 'test-kitchen', '~> 1.2'
-  gem 'kitchen-vagrant'
-end
-
-group :test do
-  gem 'chefspec', '~> 3.4'
-  gem 'strainer', '~> 3.3'
 end

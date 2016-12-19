@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: fake
-# Recipe:: default
+# Cookbook Name:: ephemeral_lvm
+# Spec:: spec_helper
 #
-# Copyright (C) 2013 RightScale, Inc.
+# Copyright (C) 2014 RightScale, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,11 +16,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+libraries_path = File.expand_path('../../libraries', __FILE__)
+$LOAD_PATH.unshift(libraries_path) unless $LOAD_PATH.include?(libraries_path)
 
-# Create the loopback devices used for testing ephemeral_lvm
-#
-if !node.attribute?('cloud') || !node['cloud'].attribute?('provider')
-  log 'Not running on a known cloud, Skipping test setup.'
-else
-  EphemeralLvmTest::Helper.create_loop_devices(node['fake']['devices'])
+require 'chefspec'
+require 'chefspec/berkshelf'
+require 'chefspec/cacher'
+require 'rspec/support'
+
+ChefSpec::Coverage.start!
+RSpec.configure do |config|
+  config.extend(ChefSpec::Cacher)
+  config.platform = 'ubuntu'
+  config.version = '12.04'
+  config.log_level = :error
 end

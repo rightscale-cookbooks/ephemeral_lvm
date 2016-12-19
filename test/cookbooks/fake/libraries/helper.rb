@@ -31,7 +31,7 @@ module EphemeralLvmTest
     def self.create_loop_devices(devices)
       Array(devices).each do |device|
         num = device.slice(/\d+/)
-        if File.exists?("/vfile#{num}")
+        if File.exist?("/vfile#{num}")
           puts "/vfile#{num} previously created"
         else
           shell_out!("dd if=/dev/zero of=/vfile#{num} bs=1024 count=65536")
