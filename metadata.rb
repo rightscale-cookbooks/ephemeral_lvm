@@ -5,6 +5,9 @@ license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '2.0.0'
+issues_url       'https://github.com/rightscale-cookbooks/ephemeral_lvm/issues' if respond_to?(:issues_url)
+source_url       'https://github.com/rightscale-cookbooks/ephemeral_lvm' if respond_to?(:source_url)
+chef_version '>= 12.0' if respond_to?(:chef_version)
 
 supports 'ubuntu'
 supports 'centos'

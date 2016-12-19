@@ -1,0 +1,7 @@
+AllCops:
+  Exclude:
+    - 'berks-cookbooks/**/*'
+    - 'knife.rb'
+Style/AccessorMethodName:
+  Exclude:
+    - 'Rakefile'

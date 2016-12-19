@@ -1,33 +1,43 @@
 ---
 driver_plugin: vagrant
 driver_config:
-  require_chef_omnibus: '12.16'
+  customize:
+    cpus: 1
+    memory: 512
+  ssh:
+    insert_key: false
+
+provisioner:
+  name: chef_zero
+  always_update_cookbooks: true
+  require_chef_omnibus: 12.16.42
 
 platforms:
 - name: centos-6.8
   driver_config:
-    box: opscode-centos-6.5
+    box: bento/centos-6.8
 - name: centos-7.0
   driver_config:
-    box: opscode-centos-7.0
+    box: bento/centos-7.0
   attributes:
     ephemeral_lvm:
       filesystem: xfs
 - name: centos-7.2
   driver_config:
-    box: opscode-centos-7.2
+    box: bento/centos-7.2
   attributes:
     ephemeral_lvm:
       filesystem: xfs
 - name: debian-7.2.0
   driver_config:
-    box: opscode-debian-7.2.0
+    box: bento/debian-7.2.0
 - name: ubuntu-12.04
   driver_config:
-    box: opscode-ubuntu-12.04
+    box: bento/ubuntu-12.04
+  run_list: ['recipe[apt]']
 - name: ubuntu-14.04
   driver_config:
-    box: opscode-ubuntu-14.04
+    box: bento/ubuntu-14.04
 
 suites:
 # This test suite mimics the behavior of being in a cloud which supports block device mapping
