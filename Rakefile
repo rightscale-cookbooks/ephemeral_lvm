@@ -18,7 +18,7 @@ end
 
 desc 'verifies version and changelog'
 task :verify_version do
-  def get_old_version
+  def old_version?
     f = `git show master:metadata.rb`
     f.each_line do |line|
       if line =~ /^version/
@@ -29,7 +29,7 @@ task :verify_version do
     @old_version
   end
 
-  def get_new_version
+  def new_version?
     f = File.read('metadata.rb')
     f.each_line do |line|
       if line =~ /^version/
@@ -40,11 +40,11 @@ task :verify_version do
     @new_version
   end
 
-  if `git rev-parse --abbrev-ref HEAD`.strip != 'master'
-    old_version = get_old_version.tr('\'', '')
-    new_version = get_new_version.tr('\'', '')
+  if `git rev-parse --abbrev-ref HEAD`.strip != ('master' && 'HEAD')
+    old_version = old_version?.tr('\'', '')
+    new_version = new_version?.tr('\'', '')
     puts "Verifying Metdata Version - Old:#{old_version}, New:#{new_version}"
-    if get_old_version == get_new_version
+    if old_version == new_version
       raise 'You need to increment version before test will pass'
     end
 
@@ -91,6 +91,13 @@ end
 desc 'runs testkitchen'
 task :kitchen do
   cmd = 'chef exec kitchen test --concurrency=2'
+  puts cmd
+  sh(cmd)
+end
+
+desc 'clean up test files'
+task :clean do
+  cmd = 'rm -fr berks-cookbooks knife.rb'
   puts cmd
   sh(cmd)
 end
