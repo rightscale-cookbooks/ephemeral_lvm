@@ -17,7 +17,7 @@ Github Repository: [https://github.com/rightscale-cookbooks/ephemeral_lvm](https
 
 # Requirements
 
-* Chef 11 or higher
+* Chef 12 or higher
 * A cloud that supports ephemeral devices. Currently supported clouds: EC2, Openstack, and Google.
 * Cookbook requirements
   * [lvm](http://community.opscode.com/cookbooks/lvm)

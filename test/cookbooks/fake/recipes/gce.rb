@@ -20,12 +20,12 @@
 # Include the fake::default recipe which sets up the loopback
 # devices used in the test.
 #
-include_recipe "fake"
+include_recipe 'fake'
 
 # Setup the links for ephemeral devices for google by id
 #
 node['fake']['devices'].each do |device|
-  match = device.match(/\/dev\/loop(\d+)/)
+  match = device.match(%{\/dev\/loop(\d+)})
   if match.nil?
     next
   else

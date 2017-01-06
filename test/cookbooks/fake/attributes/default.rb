@@ -18,4 +18,4 @@
 #
 
 # Ephemeral devices used for testing ephemeral_lvm cookbook
-default['fake']['devices'] = ["/dev/loop0", "/dev/loop1"]
+default['fake']['devices'] = ['/dev/loop0', '/dev/loop1']

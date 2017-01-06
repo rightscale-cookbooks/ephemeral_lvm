@@ -23,22 +23,22 @@ default['ephemeral_lvm']['filesystem'] =
   node['platform_family'] == 'rhel' && node['platform_version'] =~ /^7\./ ? 'xfs' : 'ext4'
 
 # The ephemeral mount point
-default['ephemeral_lvm']['mount_point'] = "/mnt/ephemeral"
+default['ephemeral_lvm']['mount_point'] = '/mnt/ephemeral'
 
 # The ephemeral mount point options
 default['ephemeral_lvm']['mount_point_properties'] = {
-  options: ["defaults", "noauto"],
+  options: %w(defaults noauto),
   pass: 0
 }
 
 # The ephemeral volume group name
-default['ephemeral_lvm']['volume_group_name'] = "vg-data"
+default['ephemeral_lvm']['volume_group_name'] = 'vg-data'
 
 # The logical volume size of the ephemeral disk
-default['ephemeral_lvm']['logical_volume_size'] = "100%VG"
+default['ephemeral_lvm']['logical_volume_size'] = '100%VG'
 
 # The ephemeral logical volume name
-default['ephemeral_lvm']['logical_volume_name'] = "ephemeral0"
+default['ephemeral_lvm']['logical_volume_name'] = 'ephemeral0'
 
 # The stripe size in kilobytes to be used if more than one ephemeral disk is found
 default['ephemeral_lvm']['stripe_size'] = 512
