@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 name             'ephemeral_lvm'
 maintainer       'RightScale, Inc.'
 maintainer_email 'cookbooks@rightscale.com'
@@ -61,16 +62,16 @@ attribute 'ephemeral_lvm/logical_volume_name',
   recipes: ['ephemeral_lvm::default'],
   required: 'optional'
 
-attribute "ephemeral_lvm/stripe_size",
-  :display_name => "Ephemeral LVM Stripe Size",
-  :description => "The stripe size to be used for the ephemeral logical volume",
-  :default => "512",
-  :recipes => ["ephemeral_lvm::default"],
-  :required => "optional"
+attribute 'ephemeral_lvm/stripe_size',
+  display_name: 'Ephemeral LVM Stripe Size',
+  description: 'The stripe size to be used for the ephemeral logical volume',
+  default: '512',
+  recipes: ['ephemeral_lvm::default'],
+  required: 'optional'
 
-attribute "ephemeral_lvm/wipe_signatures",
-  :display_name => "Ephemeral LVM Wire Signatures",
-  :description => "Whether to wipe any existing filesystem signatures",
-  :default => false,
-  :recipes => ["ephemeral_lvm::default"],
-  :required => "optional"
+attribute 'ephemeral_lvm/wipe_signatures',
+  display_name: 'Ephemeral LVM Wire Signatures',
+  description: 'Whether to wipe any existing filesystem signatures',
+  default: false,
+  recipes: ['ephemeral_lvm::default'],
+  required: 'optional'

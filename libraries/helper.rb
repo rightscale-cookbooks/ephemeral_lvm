@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook Name:: ephemeral_lvm
 # Library:: helper
@@ -24,7 +25,33 @@ module EphemeralLvm
     #
     # @param cloud [String] the name of cloud
     # @param node [Chef::Node] the Chef node
+    def self.gce_ephemeral_devices?(cloud, node)
+      # According to the GCE documentation, the instances have links for ephemeral disks as
+      # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
+      # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
+      #
+      ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
+        if ((disk['type'] == 'EPHEMERAL') || (disk['type'] == 'LOCAL-SSD')) && disk['deviceName'].match(/^local-ssd-\d+$/)
+          "/dev/disk/by-id/google-#{disk['deviceName']}"
+        end
+      end unless node[cloud]['attached_disks'].nil?
+
+      ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
+        if disk['type'] == 'LOCAL-SSD' && disk['deviceName'].match(/^local-ssd-\d+$/)
+          "/dev/disk/by-id/google-#{disk['deviceName']}"
+        end
+      end unless node[cloud]['instance'].nil?
+
+      # Removes nil elements from the ephemeral_devices array if any.
+      ephemeral_devices.compact!
+      ephemeral_devices
+    end
+
+    # Identifies the ephemeral devices available on a cloud server based on cloud-specific Ohai data and returns
+    # them as an array. This method also does the mapping required for Xen hypervisors (/dev/sdX -> /dev/xvdX).
     #
+    # @param cloud [String] the name of cloud
+    # @param node [Chef::Node] the Chef node
     # @return [Array<String>] list of ephemeral available ephemeral devices.
     #
     def self.get_ephemeral_devices(cloud, node)
@@ -58,24 +85,7 @@ module EphemeralLvm
         #
         case cloud
         when 'gce'
-          # According to the GCE documentation, the instances have links for ephemeral disks as
-          # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
-          # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
-          #
-          ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-            if ( disk['type'] == "EPHEMERAL" or disk['type'] == "LOCAL-SSD") && disk['deviceName'].match(/^local-ssd-\d+$/)
-              "/dev/disk/by-id/google-#{disk["deviceName"]}"
-            end
-          end unless node[cloud]['attached_disks'].nil?
-
-          ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
-            if disk['type'] == 'LOCAL-SSD' && disk['deviceName'].match(/^local-ssd-\d+$/)
-              "/dev/disk/by-id/google-#{disk['deviceName']}"
-            end
-          end unless node[cloud]['instance'].nil?
-
-          # Removes nil elements from the ephemeral_devices array if any.
-          ephemeral_devices.compact!
+          ephemeral_devices = gce_ephemeral_devices?(cloud, node)
         else
           Chef::Log.info 'No ephemeral disks found.'
         end

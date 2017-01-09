@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook Name:: fake
 # Recipe:: gce
@@ -26,11 +27,8 @@ include_recipe 'fake'
 #
 node['fake']['devices'].each do |device|
   match = device.match(%{\/dev\/loop(\d+)})
-  if match.nil?
-    next
-  else
-    device_index = match[1]
-  end
+  next if match.nil?
+  device_index = match[1]
   link "/dev/disk/by-id/google-ephemeral-disk-#{device_index}" do
     to device
   end
