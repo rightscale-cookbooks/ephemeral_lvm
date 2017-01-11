@@ -7,7 +7,7 @@ DEPENDENCIES
 
 GRAPH
   ephemeral_lvm (3.0.0)
-    lvm (~> 4.0)
+    lvm (>= 4.0.0)
     now (>= 0.0.0)
   fake (0.1.0)
   lvm (4.0.5)
