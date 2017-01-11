@@ -15,7 +15,7 @@ supports 'centos'
 supports 'debian'
 
 depends 'now'
-depends 'lvm', '~> 4.0.5'
+depends 'lvm', '~> 3.1.0'
 
 recipe 'ephemeral_lvm::default', 'Sets up ephemeral devices on a cloud server'
 

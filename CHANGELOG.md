@@ -5,7 +5,7 @@ This file is used to list changes made in each version of the ephemeral_lvm cook
 
 v2.1.0
 ------
-- lvm(4.0.5)[https://github.com/chef-cookbooks/lvm/releases/tag/v4.0.5]
+- [lvm-3.1.0](https://github.com/chef-cookbooks/lvm/releases/tag/v3.1.0)
 - Pull Request [#50][]: fixed detection for gce ephemeral device type "LOCAL-SSD" ([@areznikov-kabam][])
 - Pull Request [#48][]: Wipe Signatures ([@kingpong][])
 - Pull Request [#46][]: Added attribute for wipe_attributes to pass along to the lvm_volump_group ([@freimer][])
