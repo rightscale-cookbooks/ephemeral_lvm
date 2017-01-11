@@ -3,6 +3,10 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v3.0.0
+------
+- [lvm-4.0.5](https://github.com/chef-cookbooks/lvm/releases/tag/v4.0.5)
+
 v2.1.0
 ------
 - [lvm-3.1.0](https://github.com/chef-cookbooks/lvm/releases/tag/v3.1.0)
