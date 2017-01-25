@@ -21,7 +21,7 @@
 # Include the fake::default recipe which sets up the loopback
 # devices used in the test.
 #
-Chef::Log.info "including fake recipe"
+Chef::Log.info 'including fake recipe'
 include_recipe 'fake'
 
 # Setup the links for ephemeral devices for google by id
