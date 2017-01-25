@@ -54,7 +54,7 @@ suites:
 # loopback devices "/dev/loop0" and "/dev/loop1"
 #
 - name: gce
-  run_list: ["recipe[fake::gce]", "recipe[ephemeral_lvm]"]
+  run_list: ["recipe[fake]","recipe[fake::gce]", "recipe[ephemeral_lvm]"]
   attributes:
     cloud:
       provider: gce
@@ -65,11 +65,11 @@ suites:
           index: 0
           mode: READ_WRITE
           type: EPHEMERAL
-        - deviceName: ephemeral-disk-0
+        - deviceName: local-ssd-0
           index: 1
           mode: READ_WRITE
           type: EPHEMERAL
-        - deviceName: ephemeral-disk-1
+        - deviceName: local-ssd-1
           index: 2
           mode: READ_WRITE
           type: EPHEMERAL

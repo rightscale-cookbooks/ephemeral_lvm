@@ -21,15 +21,18 @@
 # Include the fake::default recipe which sets up the loopback
 # devices used in the test.
 #
+Chef::Log.info "including fake recipe"
 include_recipe 'fake'
 
 # Setup the links for ephemeral devices for google by id
 #
 node['fake']['devices'].each do |device|
-  match = device.match(%{\/dev\/loop(\d+)})
+  match = device.match(%r{\/dev\/loop(\d+)})
   next if match.nil?
   device_index = match[1]
-  link "/dev/disk/by-id/google-ephemeral-disk-#{device_index}" do
+  Chef::Log.info "adding in device: #{device}"
+  link "/dev/disk/by-id/google-local-ssd-#{device_index}" do
     to device
-  end
+    action :nothing
+  end.run_action(:create)
 end
