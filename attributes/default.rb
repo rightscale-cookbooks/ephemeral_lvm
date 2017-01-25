@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook Name:: ephemeral_lvm
 # Attributes:: default
@@ -42,3 +43,6 @@ default['ephemeral_lvm']['logical_volume_name'] = 'ephemeral0'
 
 # The stripe size in kilobytes to be used if more than one ephemeral disk is found
 default['ephemeral_lvm']['stripe_size'] = 512
+
+# Whether to wipe signatures on any existing drives
+default['ephemeral_lvm']['wipe_signatures'] = false

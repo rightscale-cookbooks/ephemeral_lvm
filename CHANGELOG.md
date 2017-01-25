@@ -3,6 +3,18 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v2.1.0
+------
+- [lvm-3.1.0](https://github.com/chef-cookbooks/lvm/releases/tag/v3.1.0)
+- Pull Request [#50][]: fixed detection for gce ephemeral device type "LOCAL-SSD" ([@areznikov-kabam][])
+- Pull Request [#48][]: Wipe Signatures ([@kingpong][])
+- Pull Request [#46][]: Added attribute for wipe_attributes to pass along to the lvm_volump_group ([@freimer][])
+- Pull Request [#33][]: Using include_recipe_now technic to allow compile time lvm2 package run ([@felka][])
+
+v2.0.1
+-------
+- addressed GCE "LOCAL-SSD" type for ephemeral drives
+
 v2.0.0
 -------
 
@@ -113,7 +125,15 @@ v1.0.0
 [#11]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/11
 [#13]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/13
 [#19]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/19
+[#33]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/33
+[#46]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/46
+[#48]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/48
+[#50]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/50
 [#54]: https://github.com/rightscale-cookbooks/ephemeral_lvm/issues/54
+[@areznikov-kabam]: https://github.com/areznikov-kabam
 [@autrejacoupa]: https://github.com/autrejacoupa
 [@drywheat]: https://github.com/drywheat
+[@felka]: https://github.com/felka
+[@freimer]: https://github.com/freimer
 [@juliandunn]: https://github.com/juliandunn
+[@kingpong]: https://github.com/kingpong

@@ -6,7 +6,9 @@ DEPENDENCIES
     path: test/cookbooks/fake
 
 GRAPH
-  ephemeral_lvm (2.0.0)
-    lvm (~> 3.1)
+  ephemeral_lvm (2.1.0)
+    lvm (~> 3.1.0)
+    now (>= 0.0.0)
   fake (0.1.0)
   lvm (3.1.0)
+  now (1.0.0)

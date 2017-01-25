@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook Name:: ephemeral_lvm
 # Recipe:: default
@@ -19,7 +20,7 @@
 
 # Include the lvm::default recipe which sets up the resources/providers for lvm
 #
-include_recipe 'lvm'
+include_recipe_now 'lvm'
 
 if !node.attribute?('cloud') || !node['cloud'].attribute?('provider') || !node.attribute?(node['cloud']['provider'])
   log 'Not running on a known cloud, not setting up ephemeral LVM'
@@ -46,6 +47,7 @@ else
           ephemeral_devices.each do |ephemeral_device|
             Chef::Log.info "Preparing #{ephemeral_device}"
             Mixlib::ShellOut.new("wipefs --all #{ephemeral_device}").run_command
+            Mixlib::ShellOut.new("wipefs --all  -f #{ephemeral_device}").run_command
           end
         else
           Chef::Log.info 'No need to remove ephemeral disk filesystem signatures.'
@@ -57,6 +59,8 @@ else
     # they are created with LVM stripes with the stripe size set in the attributes.
     #
     lvm_volume_group node['ephemeral_lvm']['volume_group_name'] do
+      wipe_signatures node['ephemeral_lvm']['wipe_signatures']
+
       physical_volumes ephemeral_devices
 
       logical_volume node['ephemeral_lvm']['logical_volume_name'] do

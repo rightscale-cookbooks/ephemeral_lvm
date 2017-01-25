@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 name             'fake'
 maintainer       'RightScale, Inc.'
 maintainer_email 'cookbooks@rightscale.com'

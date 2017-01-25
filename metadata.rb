@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 name             'ephemeral_lvm'
 maintainer       'RightScale, Inc.'
 maintainer_email 'cookbooks@rightscale.com'
 license          'Apache 2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '2.0.0'
+version          '2.1.0'
 issues_url       'https://github.com/rightscale-cookbooks/ephemeral_lvm/issues' if respond_to?(:issues_url)
 source_url       'https://github.com/rightscale-cookbooks/ephemeral_lvm' if respond_to?(:source_url)
 chef_version '>= 12.0' if respond_to?(:chef_version)
@@ -13,7 +14,8 @@ supports 'ubuntu'
 supports 'centos'
 supports 'debian'
 
-depends 'lvm', '~> 3.1'
+depends 'now'
+depends 'lvm', '~> 3.1.0'
 
 recipe 'ephemeral_lvm::default', 'Sets up ephemeral devices on a cloud server'
 
@@ -64,5 +66,12 @@ attribute 'ephemeral_lvm/stripe_size',
   display_name: 'Ephemeral LVM Stripe Size',
   description: 'The stripe size to be used for the ephemeral logical volume',
   default: '512',
+  recipes: ['ephemeral_lvm::default'],
+  required: 'optional'
+
+attribute 'ephemeral_lvm/wipe_signatures',
+  display_name: 'Ephemeral LVM Wire Signatures',
+  description: 'Whether to wipe any existing filesystem signatures',
+  default: false,
   recipes: ['ephemeral_lvm::default'],
   required: 'optional'
