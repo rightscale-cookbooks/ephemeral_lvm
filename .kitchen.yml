@@ -25,12 +25,18 @@ platforms:
 - name: debian-7.11
   driver_config:
     box: bento/debian-7.11
+- name: debian-8.6
+  driver_config:
+    box: bento/debian-8.6
 - name: ubuntu-12.04
   driver_config:
     box: bento/ubuntu-12.04
 - name: ubuntu-14.04
   driver_config:
     box: bento/ubuntu-14.04
+- name: ubuntu-16.04
+  driver_config:
+    box: bento/ubuntu-16.04
 
 suites:
 # This test suite mimics the behavior of being in a cloud which supports block device mapping
