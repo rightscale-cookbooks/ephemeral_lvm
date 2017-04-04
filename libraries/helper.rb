@@ -71,6 +71,9 @@ module EphemeralLvm
         # Removes nil elements from the ephemeral_devices array if any.
         ephemeral_devices.compact!
 
+        # Add all NVMe devices
+        ephemeral_devices.concat Dir.glob('/dev/nvme*n*')
+
         # Servers running on Xen hypervisor require the block device to be in /dev/xvdX instead of /dev/sdX
         if node.attribute?('virtualization') && node['virtualization']['system'] == 'xen'
           Chef::Log.info "Mapping for devices: #{ephemeral_devices.inspect}"
