@@ -3,6 +3,10 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v3.0.1
+------
+- Fixed detection for NVMe ephemeral devices in EC2
+
 v3.0.0
 ------
 - locks to [lvm](https://github.com/chef-cookbooks/lvm) >= 4.0, Issues: ([#60][], [#62][]), PR: [#61][]
