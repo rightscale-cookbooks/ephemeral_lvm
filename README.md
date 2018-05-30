@@ -38,6 +38,7 @@ Place the `ephemeral_lvm::default` in the runlist and the ephemeral devices will
 * `node['ephemeral_lvm']['logical_volume_size']` - the size to be used for the ephemeral LVM. Default: `'100%VG'` - This will use all available space in the volume group.
 * `node['ephemeral_lvm']['logical_volume_name']` - the name of the logical volume for ephemeral LVM. Default: `'ephemeral0'`
 * `node['ephemeral_lvm']['stripe_size']` - the stripe size to be used for the ephemeral logical volume. Default: `512`
+* `node['ephemeral_lvm']['additonal_devices']` - array of additional devices to add to stripe.  Use if we are not finding them in metadata.  default: []
 
 # Recipes
 
