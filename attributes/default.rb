@@ -46,3 +46,6 @@ default['ephemeral_lvm']['stripe_size'] = 512
 
 # Whether to wipe signatures on any existing drives
 default['ephemeral_lvm']['wipe_signatures'] = false
+
+# Array of devices to force into the ephemeral device list 
+default['ephemeral_lvm']['additonal_devices'] = []
