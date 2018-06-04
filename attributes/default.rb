@@ -29,7 +29,7 @@ default['ephemeral_lvm']['mount_point'] = '/mnt/ephemeral'
 # The ephemeral mount point options
 default['ephemeral_lvm']['mount_point_properties'] = {
   options: %w(defaults noauto),
-  pass: 0
+  pass: 0,
 }
 
 # The ephemeral volume group name
@@ -47,5 +47,5 @@ default['ephemeral_lvm']['stripe_size'] = 512
 # Whether to wipe signatures on any existing drives
 default['ephemeral_lvm']['wipe_signatures'] = false
 
-# Array of devices to force into the ephemeral device list 
+# Array of devices to force into the ephemeral device list
 default['ephemeral_lvm']['additonal_devices'] = []
