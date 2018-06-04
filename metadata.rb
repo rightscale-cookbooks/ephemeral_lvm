@@ -2,7 +2,7 @@
 name             'ephemeral_lvm'
 maintainer       'RightScale, Inc.'
 maintainer_email 'cookbooks@rightscale.com'
-license          'Apache 2.0'
+license          'Apache-2.0'
 description      'Configures available ephemeral devices on a cloud server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '3.0.2'
