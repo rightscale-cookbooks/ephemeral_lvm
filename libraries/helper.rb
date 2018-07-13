@@ -56,6 +56,7 @@ module EphemeralLvm
     #
     def self.get_ephemeral_devices(cloud, node)
       ephemeral_devices = []
+      ephemeral_devices.concat node['ephemeral_lvm']['additonal_devices']
       # Detects the ephemeral disks available on the instance.
       #
       # If the cloud plugin supports block device mapping on the node, obtain the

@@ -76,7 +76,7 @@ desc 'runs foodcritic linttask'
 task :fc_new do
   FoodCritic::Rake::LintTask.new(:chef) do |t|
     t.options = {
-      fail_tags: ['any']
+      fail_tags: ['any'],
     }
   end
 end
