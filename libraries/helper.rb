@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Cookbook Name:: ephemeral_lvm
 # Library:: helper
@@ -30,17 +31,21 @@ module EphemeralLvm
       # /dev/disk/by-id/google-ephemeral-disk-*. Refer to
       # https://developers.google.com/compute/docs/disks#scratchdisks for more information.
       #
-      ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
-        if ((disk['type'] == 'EPHEMERAL') || (disk['type'] == 'LOCAL-SSD')) && disk['deviceName'].match(/^local-ssd-\d+$/)
-          "/dev/disk/by-id/google-#{disk['deviceName']}"
+      unless node[cloud]['attached_disks'].nil?
+        ephemeral_devices = node[cloud]['attached_disks']['disks'].map do |disk|
+          if ((disk['type'] == 'EPHEMERAL') || (disk['type'] == 'LOCAL-SSD')) && disk['deviceName'].match(/^local-ssd-\d+$/)
+            "/dev/disk/by-id/google-#{disk['deviceName']}"
+          end
         end
-      end unless node[cloud]['attached_disks'].nil?
+      end
 
-      ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
-        if disk['type'] == 'LOCAL-SSD' && disk['deviceName'].match(/^local-ssd-\d+$/)
-          "/dev/disk/by-id/google-#{disk['deviceName']}"
+      unless node[cloud]['instance'].nil?
+        ephemeral_devices = node[cloud]['instance']['disks'].map do |disk|
+          if disk['type'] == 'LOCAL-SSD' && disk['deviceName'].match(/^local-ssd-\d+$/)
+            "/dev/disk/by-id/google-#{disk['deviceName']}"
+          end
         end
-      end unless node[cloud]['instance'].nil?
+      end
 
       # Removes nil elements from the ephemeral_devices array if any.
       ephemeral_devices.compact!
