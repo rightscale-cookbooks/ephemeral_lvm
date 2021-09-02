@@ -121,7 +121,11 @@ module EphemeralLvm
           Chef::Log.info 'No ephemeral disks found.'
         end
       end
-      ephemeral_devices.concat(node['ephemeral_lvm']['additonal_devices']).uniq
+      if !ephemeral_devices.nil?
+        ephemeral_devices.concat(node['ephemeral_lvm']['additonal_devices']).uniq
+      else
+        ephemeral_devices = []
+      end
     end
 
     # Fixes the device mapping on Xen hypervisors. When using Xen hypervisors, the devices are mapped from /dev/sdX to
