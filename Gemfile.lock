@@ -114,7 +114,7 @@ GEM
     pusher-client (0.6.2)
       json
       websocket (~> 1.0)
-    rack (2.0.3)
+    rack (2.2.3)
     rake (12.3.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
