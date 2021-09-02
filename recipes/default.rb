@@ -22,7 +22,7 @@
 #
 include_recipe_now 'lvm'
 
-if !node.attribute?('cloud') || !node['cloud'].attribute?('provider') || !node.attribute?(node['cloud']['provider'])
+if node['cloud'].nil? || node['cloud']['provider'].nil?
   log 'Not running on a known cloud, not setting up ephemeral LVM'
 else
   # Obtain the current cloud
