@@ -3,6 +3,14 @@ ephemeral_lvm Cookbook CHANGELOG
 
 This file is used to list changes made in each version of the ephemeral_lvm cookbook.
 
+v3.0.3
+------
+- Fix NVMe devices detection on EC2 instances powered by Nitro hypervisor
+
+v3.0.2
+------
+- Support for explicitly declaring devices using additonal_devices attribute
+
 v3.0.1
 ------
 - Fixed detection for NVMe ephemeral devices in EC2
