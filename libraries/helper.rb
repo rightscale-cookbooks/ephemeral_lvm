@@ -125,6 +125,7 @@ module EphemeralLvm
         ephemeral_devices.concat(node['ephemeral_lvm']['additonal_devices']).uniq
       else
         ephemeral_devices = []
+        ephemeral_devices.concat(node['ephemeral_lvm']['additonal_devices']).uniq
       end
     end
 
